@@ -1,7 +1,7 @@
 package org.usfirst.frc.team5687.robot;
 
 import edu.wpi.first.wpilibj.buttons.Button;
-import org.usfirst.frc.team5687.robot.commands.ExampleCommand;
+import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
 
 /**
  * This class is the glue that binds the controls on the physical operator
