@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team5687.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -9,11 +8,7 @@ import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * Main robot class
  */
 public class Robot extends IterativeRobot {
 
@@ -49,10 +44,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
+		// Stop autonomous commands when teleop starts
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 

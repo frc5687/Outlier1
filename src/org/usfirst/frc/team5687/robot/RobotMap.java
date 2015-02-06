@@ -1,13 +1,10 @@
 package org.usfirst.frc.team5687.robot;
+
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * Contains a mapping of the various devices connected to the RoboRIO 
+ * and the ports they connect to
  */
 public class RobotMap {
-    // For example to map the left and right motors, you could define the
-    // following variables to use with your drivetrain subsystem.
     
 	// Drive Train Ports
 	public static int leftFrontMotor = 0;
@@ -20,10 +17,10 @@ public class RobotMap {
     public static int lift2 = 5;
     
     // Encoders
-    public static int encoderA = 6;
-    public static int encoderB = 7;
+    public static int encoderA = 0;
+    public static int encoderB = 1;
     
-    // halleffect
-    public static int hallTop = 8;
-    public static int hallBottom = 9;
+    // hall effect sensors
+    public static int hallTop = 2;
+    public static int hallBottom = 3;
 }
