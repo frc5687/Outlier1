@@ -1,9 +1,12 @@
 package org.usfirst.frc.team5687.robot;
 
+import java.util.prefs.Preferences;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 
@@ -68,5 +71,13 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    Preferences prefs;
+    	double test = 42;
+    
+    public void robotInit1(){
+    
+    	test = prefs.getDouble("DeadBand", .4);
     }
 }
