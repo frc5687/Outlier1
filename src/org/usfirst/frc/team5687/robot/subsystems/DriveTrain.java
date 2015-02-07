@@ -30,8 +30,8 @@ public class DriveTrain extends Subsystem {
 		drive.setSafetyEnabled(true);
 		
 		// Invert the left motors
-		drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-		drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+		//drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+		//drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
 	}
 	
 
