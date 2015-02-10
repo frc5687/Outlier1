@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Gamepad extends Joystick{
 	
 	
-	public static double DEADBAND = 0.4;
+	public static double DEADBAND = 0.1;
 	
 	/*
 	 * Enumeration for the various analog axes
