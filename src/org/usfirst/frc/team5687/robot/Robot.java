@@ -1,13 +1,10 @@
 package org.usfirst.frc.team5687.robot;
 
-import java.util.prefs.Preferences;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 
 /**
@@ -15,7 +12,7 @@ import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveTrain driveTrain = new DriveTrain();
+	public static DriveTrain driveTrain;
 	public static OI oi;
 
     Command autonomousCommand;
@@ -26,6 +23,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		driveTrain = new DriveTrain();
+		
         // instantiate the command used for the autonomous period
         autonomousCommand = null;
     }
@@ -71,13 +70,5 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
-    }
-    
-    Preferences prefs;
-    	double test = 42;
-    
-    public void robotInit1(){
-    
-    	test = prefs.getDouble("DeadBand", .4);
     }
 }
