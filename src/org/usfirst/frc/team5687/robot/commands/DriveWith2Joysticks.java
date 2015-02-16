@@ -35,7 +35,7 @@ public class DriveWith2Joysticks extends Command {
      * @see edu.wpi.first.wpilibj.command.Command#execute()
      */
     protected void execute() {
-    	drive.tankDrive(oi.getLeftDriveValue(), oi.getRightDriveValue());
+    	drive.tankDrive(oi.getLeftDriveValue(), oi.getRightDriveValue(), oi.getOverrideButtonValue());
     }
 
     /* 

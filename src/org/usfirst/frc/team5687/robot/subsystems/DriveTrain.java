@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class DriveTrain extends Subsystem {
     
 	private RobotDrive drive; 
+	private final double LOWER_LIMIT = 0.6;
+	private final double UPPER_LIMIT = 0.8;
 	
 	/*
 	 * Constructor
@@ -51,9 +53,11 @@ public class DriveTrain extends Subsystem {
      * @param leftSpeed the speed value to use for the left motors
      * @param rightSpeed the speed value to use for the right motors
      */
-    public void tankDrive(double leftSpeed, double rightSpeed)
+    public void tankDrive(double leftSpeed, double rightSpeed, boolean speedOverride)
     {
-    	double speedLimit = 0.6;
+    	
+    	double speedLimit = speedOverride ? UPPER_LIMIT : LOWER_LIMIT;
+    	
     	if(leftSpeed > speedLimit && rightSpeed > speedLimit) {
     		drive.tankDrive(speedLimit, speedLimit);
     	}

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5687.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * Operator interface for the robot, tying user controls to robot commands
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 	private Gamepad gamepad;
 	private Joystick joystick;
+	//private Button button;
 	
 	/*
 	 * Constructor
@@ -15,7 +17,11 @@ public class OI {
 	public OI() {
 		gamepad = new Gamepad(0);
 		joystick = new Joystick(1);
+		//button = new Button(1);
 	}
+	
+	
+	
 	
 	/*
 	 * Returns the control value for the left drive motors
@@ -24,6 +30,10 @@ public class OI {
 	public double getLeftDriveValue() {
 		// Return the vertical left-stick axis value from the gamepad
 		return gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
+	}
+	
+	public boolean getOverrideButtonValue() {
+		return gamepad.getRawButton(Gamepad.Buttons.RB);
 	}
 	
 	/*
