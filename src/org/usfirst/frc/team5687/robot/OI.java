@@ -28,7 +28,7 @@ public class OI {
 	
 	/*
 	 * Returns the control value for the right drive motors
-	 * @return double the desired speed value for the rught drive motors
+	 * @return double the desired speed value for the right drive motors
 	 */
 	public double getRightDriveValue() {
 		// Return the vertical right-stick axis value for the gamepad
