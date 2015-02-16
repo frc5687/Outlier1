@@ -29,6 +29,12 @@ public class DriveTrain extends Subsystem {
 		drive = new RobotDrive(leftFront, leftBack, rightFront, rightBack);
 		drive.setSafetyEnabled(true);
 		
+		// Inverting the drive motors
+		drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+		drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+		drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+		drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+		
 	}
 	
 
@@ -47,7 +53,16 @@ public class DriveTrain extends Subsystem {
      */
     public void tankDrive(double leftSpeed, double rightSpeed)
     {
-    	drive.tankDrive(leftSpeed, rightSpeed, false);
+    	double speedLimit = 0.6;
+    	if(leftSpeed > speedLimit && rightSpeed > speedLimit) {
+    		drive.tankDrive(speedLimit, speedLimit);
+    	}
+    	else if (leftSpeed < -speedLimit && rightSpeed < -speedLimit) {
+    		drive.tankDrive(-speedLimit, -speedLimit);
+    	}
+    	else {
+    		drive.tankDrive(leftSpeed, rightSpeed, false);
+    	}
     }
 }
 

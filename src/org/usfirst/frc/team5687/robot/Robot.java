@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 /**
  * Main robot class
@@ -13,6 +14,7 @@ import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrain;
+	public static Stacker stacker;
 	public static OI oi;
 
     Command autonomousCommand;
@@ -24,6 +26,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
+		stacker = new Stacker();
 		
         // instantiate the command used for the autonomous period
         autonomousCommand = null;
