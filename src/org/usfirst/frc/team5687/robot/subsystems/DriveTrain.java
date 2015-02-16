@@ -53,7 +53,16 @@ public class DriveTrain extends Subsystem {
      */
     public void tankDrive(double leftSpeed, double rightSpeed)
     {
-    	drive.tankDrive(leftSpeed, rightSpeed, false);
+    	double speedLimit = 0.6;
+    	if(leftSpeed > speedLimit && rightSpeed > speedLimit) {
+    		drive.tankDrive(speedLimit, speedLimit);
+    	}
+    	else if (leftSpeed < -speedLimit && rightSpeed < -speedLimit) {
+    		drive.tankDrive(-speedLimit, -speedLimit);
+    	}
+    	else {
+    		drive.tankDrive(leftSpeed, rightSpeed, false);
+    	}
     }
 }
 
