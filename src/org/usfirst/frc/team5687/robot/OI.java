@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5687.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * Operator interface for the robot, tying user controls to robot commands
@@ -32,10 +31,6 @@ public class OI {
 		return gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
 	}
 	
-	public boolean getOverrideButtonValue() {
-		return gamepad.getRawButton(Gamepad.Buttons.RB);
-	}
-	
 	/*
 	 * Returns the control value for the right drive motors
 	 * @return double the desired speed value for the right drive motors
@@ -43,6 +38,14 @@ public class OI {
 	public double getRightDriveValue() {
 		// Return the vertical right-stick axis value for the gamepad
 		return gamepad.getRawAxis(Gamepad.Axes.RIGHT_Y);
+	}
+	
+	/*
+	 * Checks if the driver wants to override the internal speed limit
+	 * @return boolean true if the driver wants to override the speed limit
+	 */
+	public boolean getOverrideButtonValue() {
+		return gamepad.getRawButton(Gamepad.Buttons.RB);
 	}
 	
 	/*
