@@ -7,10 +7,8 @@ package org.usfirst.frc.team5687.robot;
 public class RobotMap {
     
 	// Drive Train Ports
-	public static int leftFrontMotor = 0;
-    public static int rightFrontMotor = 2;
-    public static int leftBackMotor = 1;
-    public static int rightBackMotor = 3;
+	public static int leftMotor = 0;
+    public static int rightMotor = 3;
     
     // Lift Motor Ports
     public static int stackerMotor = 4;
