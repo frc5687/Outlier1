@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 	private Gamepad gamepad;
 	private Joystick joystick;
-	//private Button button;
 	
 	/*
 	 * Constructor
@@ -16,11 +15,7 @@ public class OI {
 	public OI() {
 		gamepad = new Gamepad(0);
 		joystick = new Joystick(1);
-		//button = new Button(1);
 	}
-	
-	
-	
 	
 	/*
 	 * Returns the control value for the left drive motors
@@ -28,7 +23,8 @@ public class OI {
 	 */
 	public double getLeftDriveValue() {
 		// Return the vertical left-stick axis value from the gamepad
-		return gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
+		double raw = gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
+		return Util.applyDeadband(raw, RobotFactors.Deadbands.DRIVE_STICK);
 	}
 	
 	/*
@@ -37,7 +33,8 @@ public class OI {
 	 */
 	public double getRightDriveValue() {
 		// Return the vertical right-stick axis value for the gamepad
-		return gamepad.getRawAxis(Gamepad.Axes.RIGHT_Y);
+		double raw = gamepad.getRawAxis(Gamepad.Axes.RIGHT_Y);
+		return Util.applyDeadband(raw, RobotFactors.Deadbands.DRIVE_STICK);
 	}
 	
 	/*
@@ -53,7 +50,7 @@ public class OI {
 	 * @return double the desired speed for the stacker motor
 	 */
 	public double getStackerValue() {
-		return Util.applyDeadband(joystick.getRawAxis(1), 0.1);
+		return Util.applyDeadband(joystick.getRawAxis(1), RobotFactors.Deadbands.LIFT_STICK);
 	}
 }
 

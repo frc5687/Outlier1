@@ -7,9 +7,6 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class Gamepad extends Joystick{
 	
-	
-	public static double DEADBAND = 0.1;
-	
 	/*
 	 * Enumeration for the various analog axes
 	 */
@@ -52,8 +49,7 @@ public class Gamepad extends Joystick{
 	 * @return double the analog value for the axis
 	 */
 	public double getRawAxis(Axes axis) {
-		double raw = super.getRawAxis(axis.ordinal());
-		return Util.applyDeadband(raw, DEADBAND);
+		return super.getRawAxis(axis.ordinal());
 	}
 	
 	/*

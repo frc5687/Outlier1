@@ -1,7 +1,9 @@
 package org.usfirst.frc.team5687.robot.subsystems;
 
+import org.usfirst.frc.team5687.robot.RobotFactors;
 import org.usfirst.frc.team5687.robot.RobotMap;
 import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,9 +14,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class DriveTrain extends Subsystem {
     
-	private RobotDrive drive; 
-	private final double LOWER_LIMIT = 0.6;
-	private final double UPPER_LIMIT = 0.8;
+	private RobotDrive drive;
 	
 	/*
 	 * Constructor
@@ -51,7 +51,8 @@ public class DriveTrain extends Subsystem {
     public void tankDrive(double leftSpeed, double rightSpeed, boolean speedOverride)
     {
     	// Determine which internal speed limit to use
-    	double speedLimit = speedOverride ? UPPER_LIMIT : LOWER_LIMIT;
+    	double speedLimit = speedOverride ? 
+    			RobotFactors.SpeedLimits.BOOST : RobotFactors.SpeedLimits.PRIMARY;
     	
     	if(leftSpeed > speedLimit && rightSpeed > speedLimit) {
     		drive.tankDrive(speedLimit, speedLimit);
