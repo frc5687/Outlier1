@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5687.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team5687.robot.OI;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
@@ -35,7 +34,9 @@ public class DriveWith2Joysticks extends Command {
      * @see edu.wpi.first.wpilibj.command.Command#execute()
      */
     protected void execute() {
-    	drive.tankDrive(oi.getLeftDriveValue(), oi.getRightDriveValue(), oi.getOverrideButtonValue());
+    	drive.tankDrive(oi.getLeftDriveValue(), 
+    					oi.getRightDriveValue(), 
+    					oi.getOverrideButtonValue());
     }
 
     /* 
