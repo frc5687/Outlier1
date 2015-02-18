@@ -16,7 +16,19 @@ public class RobotFactors {
 	
 	public class PID {
 		public static final double kP = 1.0;
-		public static final double kI = 0.5;
-		public static final double kD = 0.2;
+		public static final double kI = 0.0;
+		public static final double kD = 0.0;
 	}
+	
+	public class StackerHeights {
+		public static final double GROUND = 0.0;
+		public static final double HOVER_CAN = 26.5;
+		public static final double CLEAR_FIRST = 45.75;
+		public static final double HOVER_FIRST = 52.0;
+		public static final double CLEAR_SECOND = 70.875;
+		public static final double HOVER_SECOND = 75.375;
+		public static final double DEPOSIT_HEIGHT = 64.0;
+	}
+	
+	public static final double DISTANCE_PER_PULSE = 0.0005;
 }

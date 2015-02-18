@@ -1,6 +1,10 @@
 package org.usfirst.frc.team5687.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team5687.robot.commands.*;
 
 /**
  * Operator interface for the robot, tying user controls to robot commands
@@ -15,6 +19,22 @@ public class OI {
 	public OI() {
 		gamepad = new Gamepad(0);
 		joystick = new Joystick(1);
+		
+		JoystickButton upButton = new JoystickButton(joystick, 1);
+		JoystickButton downButton = new JoystickButton(joystick, 2);
+		JoystickButton resetButton = new JoystickButton(joystick, 7);
+		JoystickButton depositButton = new JoystickButton(joystick, 8);
+		
+		upButton.whenPressed(new MoveStackerUp());
+		downButton.whenPressed(new MoveStackerDown());
+		resetButton.whenPressed(new ResetStacker());
+		depositButton.whenPressed(new DepositStack());
+		
+		// Add commands to dashboard
+		SmartDashboard.putData("Reset Stacker", new ResetStacker());
+		SmartDashboard.putData("Move Stacker Up", new MoveStackerUp());
+		SmartDashboard.putData("Move Stacker Down", new MoveStackerDown());
+		SmartDashboard.putData("Deposit Stack", new DepositStack());
 	}
 	
 	/*

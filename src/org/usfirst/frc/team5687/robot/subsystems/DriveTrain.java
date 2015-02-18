@@ -7,6 +7,7 @@ import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
@@ -21,16 +22,20 @@ public class DriveTrain extends Subsystem {
 	 */
 	public DriveTrain() {
 		// Setup speed controllers
-		SpeedController leftMotor = new Talon(RobotMap.leftMotor);
-		SpeedController rightMotor = new Talon(RobotMap.rightMotor);
+		Talon leftMotor = new Talon(RobotMap.leftMotor);
+		Talon rightMotor = new Talon(RobotMap.rightMotor);
 		
 		// Initialize the drive object
 		drive = new RobotDrive(leftMotor, rightMotor);
 		drive.setSafetyEnabled(true);
 		
 		// Inverting the drive motors
-		drive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-		drive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+		drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+		drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+		
+		// Add test values
+		LiveWindow.addActuator("Drive", "Left Motor", leftMotor);
+		LiveWindow.addActuator("Drive", "Right Motor", rightMotor);
 	}
 
 	/*
