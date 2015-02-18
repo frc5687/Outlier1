@@ -21,14 +21,15 @@ public class RobotFactors {
 	}
 	
 	public class StackerHeights {
+		// platform starts at 21.125in form floor
 		public static final double GROUND = 0.0;
-		public static final double HOVER_CAN = 26.5;
-		public static final double CLEAR_FIRST = 45.75;
-		public static final double HOVER_FIRST = 52.0;
-		public static final double CLEAR_SECOND = 70.875;
-		public static final double HOVER_SECOND = 75.375;
-		public static final double DEPOSIT_HEIGHT = 64.0;
+		public static final double HOVER_CAN = 5.375;
+		public static final double CLEAR_FIRST = 24.625;
+		public static final double HOVER_FIRST = 30.875;
+		public static final double CLEAR_SECOND = 49.75;
+		public static final double HOVER_SECOND = 54.25;
+		public static final double DEPOSIT_HEIGHT = 42.875;
 	}
 	
-	public static final double DISTANCE_PER_PULSE = 0.0005;
+	public static final double DISTANCE_PER_PULSE = 0.000125;
 }
