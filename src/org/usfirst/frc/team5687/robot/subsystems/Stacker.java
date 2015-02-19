@@ -2,16 +2,15 @@ package org.usfirst.frc.team5687.robot.subsystems;
 
 import org.usfirst.frc.team5687.robot.RobotFactors;
 import org.usfirst.frc.team5687.robot.RobotMap;
-import org.usfirst.frc.team5687.robot.Util;
 import org.usfirst.frc.team5687.robot.commands.MoveStackerManually;
 
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -40,7 +39,8 @@ public class Stacker extends PIDSubsystem {
     	this.setAbsoluteTolerance(0.25);
     	
     	// Initialize the encoder
-    	encoder = new Encoder(RobotMap.encoderA, RobotMap.encoderB);
+    	// TODO is this encoder setup right? Is the direction correct?
+    	encoder = new Encoder(RobotMap.encoderA, RobotMap.encoderB, false, EncodingType.k4X);
     	encoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
     	encoder.setDistancePerPulse(RobotFactors.DISTANCE_PER_PULSE);
     	
