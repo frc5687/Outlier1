@@ -20,16 +20,19 @@ public class RobotFactors {
 		public static final double kD = 0.0;
 	}
 	
+	
+	
 	public class StackerHeights {
 		// platform starts at 21.125in form floor
-		// TODO is there a way to store these as absolute heights, and have the code handle the offset?
-		public static final double GROUND = 0.0;
-		public static final double HOVER_CAN = 5.375;
-		public static final double CLEAR_FIRST = 24.625;
-		public static final double HOVER_FIRST = 30.875;
-		public static final double CLEAR_SECOND = 49.75;
-		public static final double HOVER_SECOND = 54.25;
-		public static final double DEPOSIT_HEIGHT = 42.875;
+		private static final double HEIGHT_OFFSET = 21.125;
+		
+		public static final double GROUND = HEIGHT_OFFSET;
+		public static final double HOVER_CAN = 26.5 - HEIGHT_OFFSET;
+		public static final double CLEAR_FIRST = 45.75 - HEIGHT_OFFSET;
+		public static final double HOVER_FIRST = 52 - HEIGHT_OFFSET;
+		public static final double CLEAR_SECOND = 70.875 - HEIGHT_OFFSET;
+		public static final double HOVER_SECOND = 75.375 - HEIGHT_OFFSET;
+		public static final double DEPOSIT_HEIGHT = 64 - HEIGHT_OFFSET;
 	}
 	
 	// Ball-screw is 0.5in per revolution
