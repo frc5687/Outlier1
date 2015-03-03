@@ -1,7 +1,7 @@
 package org.usfirst.frc.team5687.robot.commands;
 
 import org.usfirst.frc.team5687.robot.Robot;
-import org.usfirst.frc.team5687.robot.RobotFactors;
+import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,7 +24,7 @@ public class DepositStack extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	stacker.setSetpoint(RobotFactors.StackerHeights.DEPOSIT_HEIGHT);
+    	stacker.setSetpoint(Constants.StackerHeights.DEPOSIT_HEIGHT);
     }
 
     // Make this return true when this Command no longer needs to run execute()

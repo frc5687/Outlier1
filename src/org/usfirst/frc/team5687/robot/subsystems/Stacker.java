@@ -1,6 +1,6 @@
 package org.usfirst.frc.team5687.robot.subsystems;
 
-import org.usfirst.frc.team5687.robot.RobotFactors;
+import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.RobotMap;
 import org.usfirst.frc.team5687.robot.commands.MoveStackerManually;
 
@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Subsystem for the tote and can stacker
@@ -27,7 +28,7 @@ public class Stacker extends PIDSubsystem {
      * Constructor
      */
     public Stacker() {
-    	super(RobotFactors.PID.kP, RobotFactors.PID.kI, RobotFactors.PID.kD);
+    	super(Constants.PID.kP, Constants.PID.kI, Constants.PID.kD);
     	
     	// Setup the motor
     	stackerMotor = new Victor(RobotMap.stackerMotor);
@@ -39,12 +40,13 @@ public class Stacker extends PIDSubsystem {
     	this.setAbsoluteTolerance(0.25);
     	
     	// Initialize the encoder
-    	// TODO is this encoder setup right? Is the direction correct?
     	encoder = new Encoder(RobotMap.encoderA, RobotMap.encoderB, false, EncodingType.k4X);
     	encoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
-    	encoder.setDistancePerPulse(RobotFactors.DISTANCE_PER_PULSE);
+    	encoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
+    	getPIDController().setContinuous(false);
     	
     	LiveWindow.addActuator("Stacker", "PID Controller", this.getPIDController());
+    	LiveWindow.addSensor("Stacker", "Encoder", encoder);
     }
 
     /*
@@ -62,6 +64,7 @@ public class Stacker extends PIDSubsystem {
      */
     public void moveStacker(double speed) {
     	boolean movingDown = speed < 0;
+    	updateDashboard();
     	
     	// Don't allow movement if lift is already at the limit for the chosen direction
     	if((movingDown && isAtLowerLimit()) || (!movingDown && isAtUpperLimit())) {
@@ -84,17 +87,17 @@ public class Stacker extends PIDSubsystem {
 	/*
 	 * Get the height for the next level for the stacker
 	 */
-	public double getNextHeight() {
+	public double getNextHeight() {	
 		double current = encoder.getDistance();
-		if(current < RobotFactors.StackerHeights.HOVER_CAN)
-			return RobotFactors.StackerHeights.HOVER_CAN;
-		else if(current < RobotFactors.StackerHeights.CLEAR_FIRST)
-			return RobotFactors.StackerHeights.CLEAR_FIRST;
-		else if(current < RobotFactors.StackerHeights.HOVER_FIRST)
-			return RobotFactors.StackerHeights.HOVER_FIRST;
-		else if(current < RobotFactors.StackerHeights.CLEAR_SECOND)
-			return RobotFactors.StackerHeights.CLEAR_SECOND;
-		else return RobotFactors.StackerHeights.HOVER_SECOND;
+		if(current < Constants.StackerHeights.HOVER_CAN)
+			return Constants.StackerHeights.HOVER_CAN;
+		else if(current < Constants.StackerHeights.CLEAR_FIRST)
+			return Constants.StackerHeights.CLEAR_FIRST;
+		else if(current < Constants.StackerHeights.HOVER_FIRST)
+			return Constants.StackerHeights.HOVER_FIRST;
+		else if(current < Constants.StackerHeights.CLEAR_SECOND)
+			return Constants.StackerHeights.CLEAR_SECOND;
+		else return Constants.StackerHeights.HOVER_SECOND;
 	}
 	
 	/*
@@ -102,18 +105,17 @@ public class Stacker extends PIDSubsystem {
 	 */
 	public double getPreviousHeight() {
 		double current = encoder.getDistance();
-		if(current > RobotFactors.StackerHeights.HOVER_SECOND)
-			return RobotFactors.StackerHeights.HOVER_SECOND;
-		else if(current > RobotFactors.StackerHeights.CLEAR_SECOND)
-			return RobotFactors.StackerHeights.CLEAR_SECOND;
-		else if(current > RobotFactors.StackerHeights.HOVER_FIRST)
-			return RobotFactors.StackerHeights.HOVER_FIRST;
-		else if(current > RobotFactors.StackerHeights.CLEAR_FIRST)
-			return RobotFactors.StackerHeights.CLEAR_FIRST;
-		else if(current > RobotFactors.StackerHeights.HOVER_CAN)
-			return RobotFactors.StackerHeights.HOVER_CAN;
-		else return RobotFactors.StackerHeights.GROUND;
-		
+		if(current > Constants.StackerHeights.HOVER_SECOND)
+			return Constants.StackerHeights.HOVER_SECOND;
+		else if(current > Constants.StackerHeights.CLEAR_SECOND)
+			return Constants.StackerHeights.CLEAR_SECOND;
+		else if(current > Constants.StackerHeights.HOVER_FIRST)
+			return Constants.StackerHeights.HOVER_FIRST;
+		else if(current > Constants.StackerHeights.CLEAR_FIRST)
+			return Constants.StackerHeights.CLEAR_FIRST;
+		else if(current > Constants.StackerHeights.HOVER_CAN)
+			return Constants.StackerHeights.HOVER_CAN;
+		else return Constants.StackerHeights.GROUND;
 	}
     
 	/*
@@ -135,6 +137,21 @@ public class Stacker extends PIDSubsystem {
      */
     public void resetEncoder() {
     	encoder.reset();
+    }
+    
+    /*
+     * Updates the values on the smart dashboard
+     */
+    private void updateDashboard()
+    {
+    	// Put limit switch values on the SMDB
+    	SmartDashboard.putBoolean("upper limit", isAtUpperLimit());
+    	SmartDashboard.putBoolean("lower limit", isAtLowerLimit());
+    	
+    	// Put encoder values and next/ previous height on the SMDB
+		SmartDashboard.putNumber("Encoder", encoder.getDistance());
+		SmartDashboard.putNumber("Next Height", getNextHeight());
+		SmartDashboard.putNumber("Previous Height", getPreviousHeight());
     }
 }
 

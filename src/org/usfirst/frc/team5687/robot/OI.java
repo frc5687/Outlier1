@@ -22,19 +22,25 @@ public class OI {
 		
 		JoystickButton upButton = new JoystickButton(joystick, 1);
 		JoystickButton downButton = new JoystickButton(joystick, 2);
-		JoystickButton resetButton = new JoystickButton(joystick, 7);
-		JoystickButton depositButton = new JoystickButton(joystick, 8);
+		JoystickButton resetButton = new JoystickButton(joystick, 6);
+		JoystickButton depositButton = new JoystickButton(joystick, 10);
+		JoystickButton deposit2Button = new JoystickButton(joystick, 8);
+		JoystickButton chuteButton = new JoystickButton(joystick, 5);
 		
 		upButton.whenPressed(new MoveStackerUp());
 		downButton.whenPressed(new MoveStackerDown());
 		resetButton.whenPressed(new ResetStacker());
 		depositButton.whenPressed(new DepositStack());
+		deposit2Button.whenPressed(new Deposit2Stack());
+		chuteButton.whenPressed(new MoveToChuteHeight());
 		
 		// Add commands to dashboard
 		SmartDashboard.putData("Reset Stacker", new ResetStacker());
 		SmartDashboard.putData("Move Stacker Up", new MoveStackerUp());
 		SmartDashboard.putData("Move Stacker Down", new MoveStackerDown());
 		SmartDashboard.putData("Deposit Stack", new DepositStack());
+		SmartDashboard.putData("Deposit 2-Tote Stack", new Deposit2Stack());
+		SmartDashboard.putData("Move to chute height", new MoveToChuteHeight());
 	}
 	
 	/*
@@ -44,7 +50,7 @@ public class OI {
 	public double getLeftDriveValue() {
 		// Return the vertical left-stick axis value from the gamepad
 		double raw = gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
-		return Util.applyDeadband(raw, RobotFactors.Deadbands.DRIVE_STICK);
+		return Util.applyDeadband(raw, Constants.Deadbands.DRIVE_STICK);
 	}
 	
 	/*
@@ -54,7 +60,7 @@ public class OI {
 	public double getRightDriveValue() {
 		// Return the vertical right-stick axis value for the gamepad
 		double raw = gamepad.getRawAxis(Gamepad.Axes.RIGHT_Y);
-		return Util.applyDeadband(raw, RobotFactors.Deadbands.DRIVE_STICK);
+		return Util.applyDeadband(raw, Constants.Deadbands.DRIVE_STICK);
 	}
 	
 	/*
@@ -70,7 +76,7 @@ public class OI {
 	 * @return double the desired speed for the stacker motor
 	 */
 	public double getStackerValue() {
-		return Util.applyDeadband(joystick.getRawAxis(1), RobotFactors.Deadbands.LIFT_STICK);
+		return Util.applyDeadband(joystick.getRawAxis(1), Constants.Deadbands.LIFT_STICK);
 	}
 }
 

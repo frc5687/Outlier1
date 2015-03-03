@@ -1,6 +1,6 @@
 package org.usfirst.frc.team5687.robot.subsystems;
 
-import org.usfirst.frc.team5687.robot.RobotFactors;
+import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.RobotMap;
 import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
 
@@ -56,7 +56,7 @@ public class DriveTrain extends Subsystem {
     {
     	// Determine which internal speed limit to use
     	double speedLimit = speedOverride ? 
-    			RobotFactors.SpeedLimits.BOOST : RobotFactors.SpeedLimits.PRIMARY;
+    			Constants.SpeedLimits.BOOST : Constants.SpeedLimits.PRIMARY;
     	
     	if(leftSpeed > speedLimit && rightSpeed > speedLimit) {
     		drive.tankDrive(speedLimit, speedLimit);
