@@ -15,9 +15,17 @@ public class Constants {
 	}
 	
 	public class PID {
+		// Proportional constant
 		public static final double kP = 1.0;
+		
+		// Integral constant
 		public static final double kI = 0.0;
+		
+		// Derivative constant
 		public static final double kD = 0.0;
+		
+		// Tolerance for PID onTarget() method, in inches
+		public static final double TOLERANCE = 0.25;
 	}
 	
 	public class StackerHeights {
@@ -33,7 +41,7 @@ public class Constants {
 		public static final double DEPOSIT_HEIGHT = 64 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_2_HEIGHT = 37.5 - HEIGHT_OFFSET;
 		
-		// This isn't the final measurement
+		// TODO get the actual measurement
 		public static final double CHUTE_HEIGHT = 37.5 - HEIGHT_OFFSET; 
 	}
 	

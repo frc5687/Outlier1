@@ -37,7 +37,7 @@ public class Stacker extends PIDSubsystem {
     	lowerSensor = new DigitalInput(RobotMap.hallBottom);
     	upperSensor = new DigitalInput(RobotMap.hallTop);
     	
-    	this.setAbsoluteTolerance(0.25);
+    	this.setAbsoluteTolerance(Constants.PID.TOLERANCE);
     	
     	// Initialize the encoder
     	encoder = new Encoder(RobotMap.encoderA, RobotMap.encoderB, false, EncodingType.k4X);
