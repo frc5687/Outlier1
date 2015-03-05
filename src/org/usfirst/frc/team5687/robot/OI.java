@@ -14,11 +14,11 @@ public class OI {
 	private Joystick joystick;
 	
 	public static final int RESET = 6;
-	public static final int CLEAR_2 = 1;
-	public static final int CLEAR_4 = 2;
-	public static final int DEPOSIT_2 = 10;
-	public static final int DEPOSIT_4 = 8;
-	public static final int CHUTE = 5;
+	public static final int CLEAR_2 = 7;
+	public static final int CLEAR_4 = 9;
+	public static final int DEPOSIT_2 = 8;
+	public static final int DEPOSIT_4 = 10;
+	public static final int CHUTE = 3;
 	
 	/*
 	 * Constructor
@@ -37,8 +37,8 @@ public class OI {
 		
 		// Link buttons to commands
 		resetButton.whenPressed(new ResetStacker());
-		clear2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));
-		clear4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_FIRST));
+		clear2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_FIRST));
+		clear4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));
 		deposit2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT));
 		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_HEIGHT));
 		chuteButton.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CHUTE_HEIGHT));
