@@ -41,7 +41,7 @@ public class Constants {
 		public static final double DEPOSIT_2_HEIGHT = 37.5 - HEIGHT_OFFSET;
 		
 		// TODO get the actual measurement
-		public static final double CHUTE_HEIGHT = 37.5 - HEIGHT_OFFSET;
+		public static final double CHUTE_HEIGHT = 52.5 - HEIGHT_OFFSET;
 		
 		/*
 		public static final double HOVER_CAN = 26.5 - HEIGHT_OFFSET;
