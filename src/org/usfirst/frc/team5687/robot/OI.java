@@ -13,6 +13,13 @@ public class OI {
 	private Gamepad gamepad;
 	private Joystick joystick;
 	
+	public static final int RESET = 6;
+	public static final int CLEAR_2 = 1;
+	public static final int CLEAR_4 = 2;
+	public static final int DEPOSIT_2 = 10;
+	public static final int DEPOSIT_4 = 8;
+	public static final int CHUTE = 5;
+	
 	/*
 	 * Constructor
 	 */
@@ -20,27 +27,24 @@ public class OI {
 		gamepad = new Gamepad(0);
 		joystick = new Joystick(1);
 		
-		JoystickButton upButton = new JoystickButton(joystick, 1);
-		JoystickButton downButton = new JoystickButton(joystick, 2);
-		JoystickButton resetButton = new JoystickButton(joystick, 6);
-		JoystickButton depositButton = new JoystickButton(joystick, 10);
-		JoystickButton deposit2Button = new JoystickButton(joystick, 8);
-		JoystickButton chuteButton = new JoystickButton(joystick, 5);
+		// Create buttons
+		JoystickButton resetButton = new JoystickButton(joystick, RESET);
+		JoystickButton clear2Button = new JoystickButton(joystick, CLEAR_2);
+		JoystickButton clear4Button = new JoystickButton(joystick, CLEAR_4);
+		JoystickButton deposit2Button = new JoystickButton(joystick, DEPOSIT_2);
+		JoystickButton deposit4Button = new JoystickButton(joystick, DEPOSIT_4);
+		JoystickButton chuteButton = new JoystickButton(joystick, CHUTE);
 		
-		upButton.whenPressed(new MoveStackerUp());
-		downButton.whenPressed(new MoveStackerDown());
+		// Link buttons to commands
 		resetButton.whenPressed(new ResetStacker());
-		depositButton.whenPressed(new DepositStack());
-		deposit2Button.whenPressed(new Deposit2Stack());
-		chuteButton.whenPressed(new MoveToChuteHeight());
+		clear2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));
+		clear4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_FIRST));
+		deposit2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT));
+		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_HEIGHT));
+		chuteButton.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CHUTE_HEIGHT));
 		
 		// Add commands to dashboard
 		SmartDashboard.putData("Reset Stacker", new ResetStacker());
-		SmartDashboard.putData("Move Stacker Up", new MoveStackerUp());
-		SmartDashboard.putData("Move Stacker Down", new MoveStackerDown());
-		SmartDashboard.putData("Deposit Stack", new DepositStack());
-		SmartDashboard.putData("Deposit 2-Tote Stack", new Deposit2Stack());
-		SmartDashboard.putData("Move to chute height", new MoveToChuteHeight());
 	}
 	
 	/*

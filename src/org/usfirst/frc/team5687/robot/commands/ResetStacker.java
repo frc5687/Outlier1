@@ -24,7 +24,7 @@ public class ResetStacker extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	stacker.moveStacker(-0.8);
+    	stacker.move(-0.8);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,5 +40,6 @@ public class ResetStacker extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	stacker.stop();
     }
 }

@@ -12,6 +12,8 @@ public class Constants {
 	public class SpeedLimits {
 		public static final double PRIMARY = 0.6;
 		public static final double BOOST = 0.8;
+		public static final double STACKER_DOWN = 0.6;
+		public static final double STACKER_UP = 1.0;
 	}
 	
 	public class PID {
@@ -33,16 +35,19 @@ public class Constants {
 		private static final double HEIGHT_OFFSET = 21.125;
 		
 		public static final double GROUND = 0;
-		public static final double HOVER_CAN = 26.5 - HEIGHT_OFFSET;
 		public static final double CLEAR_FIRST = 45.75 - HEIGHT_OFFSET;
-		public static final double HOVER_FIRST = 52 - HEIGHT_OFFSET;
 		public static final double CLEAR_SECOND = 70.875 - HEIGHT_OFFSET;
-		public static final double HOVER_SECOND = 75.375 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_HEIGHT = 64 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_2_HEIGHT = 37.5 - HEIGHT_OFFSET;
 		
 		// TODO get the actual measurement
-		public static final double CHUTE_HEIGHT = 37.5 - HEIGHT_OFFSET; 
+		public static final double CHUTE_HEIGHT = 37.5 - HEIGHT_OFFSET;
+		
+		/*
+		public static final double HOVER_CAN = 26.5 - HEIGHT_OFFSET;
+		public static final double HOVER_FIRST = 52 - HEIGHT_OFFSET;
+		public static final double HOVER_SECOND = 75.375 - HEIGHT_OFFSET;
+		*/
 	}
 	
 	// Ball-screw is 0.5in per revolution

@@ -25,7 +25,7 @@ public class MoveStackerManually extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	stacker.moveStacker(oi.getStackerValue());
+    	stacker.move(oi.getStackerValue());
     }
 
     // Make this return true when this Command no longer needs to run execute()
