@@ -40,9 +40,11 @@ public class Robot extends IterativeRobot {
         autonomousCommand = new AutonomousCommandGroup();
         
         // Setup camera streaming, not working yet
+        /*
         server = CameraServer.getInstance();
         server.setQuality(50);
         server.startAutomaticCapture("cam0");
+        */
     }
 	
 	public void disabledPeriodic() {
