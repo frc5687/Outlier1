@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team5687.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team5687.robot.commands.ResetStacker;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
@@ -36,7 +37,7 @@ public class Robot extends IterativeRobot {
 		updateDashboard();
 		
         // instantiate the command used for the autonomous period
-        autonomousCommand = null;
+        autonomousCommand = new AutonomousCommandGroup();
         
         // Setup camera streaming, not working yet
         server = CameraServer.getInstance();
