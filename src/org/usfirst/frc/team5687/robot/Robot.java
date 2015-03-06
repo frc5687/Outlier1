@@ -1,11 +1,14 @@
 package org.usfirst.frc.team5687.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team5687.robot.commands.AutonomousCommandGroup;
+import org.usfirst.frc.team5687.robot.commands.ResetStacker;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
@@ -19,6 +22,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
     Command autonomousCommand;
+    
+    CameraServer server;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -32,7 +37,14 @@ public class Robot extends IterativeRobot {
 		updateDashboard();
 		
         // instantiate the command used for the autonomous period
-        autonomousCommand = null;
+        autonomousCommand = new AutonomousCommandGroup();
+        
+        // Setup camera streaming, not working yet
+        /*
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture("cam0");
+        */
     }
 	
 	public void disabledPeriodic() {

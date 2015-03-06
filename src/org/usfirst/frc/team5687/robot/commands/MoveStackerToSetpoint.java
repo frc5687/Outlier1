@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5687.robot.commands;
 
 import org.usfirst.frc.team5687.robot.Robot;
-import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -9,12 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Deposit2Stack extends Command {
-	
-	private Stacker stacker = Robot.stacker;
+public class MoveStackerToSetpoint extends Command {
 
-    public Deposit2Stack() {
+	private Stacker stacker = Robot.stacker;
+	private double setpoint = 0.0;
+	
+    public MoveStackerToSetpoint(double setpoint) {
         requires(stacker);
+        this.setpoint = setpoint;
     }
 
     // Called just before this Command runs the first time
@@ -24,7 +25,7 @@ public class Deposit2Stack extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	stacker.setSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT);
+    	stacker.setSetpoint(setpoint);
     }
 
     // Make this return true when this Command no longer needs to run execute()

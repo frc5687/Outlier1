@@ -37,14 +37,17 @@ public class Stacker extends PIDSubsystem {
     	lowerSensor = new DigitalInput(RobotMap.hallBottom);
     	upperSensor = new DigitalInput(RobotMap.hallTop);
     	
-    	this.setAbsoluteTolerance(Constants.PID.TOLERANCE);
-    	
     	// Initialize the encoder
     	encoder = new Encoder(RobotMap.encoderA, RobotMap.encoderB, false, EncodingType.k4X);
     	encoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
     	encoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
-    	getPIDController().setContinuous(false);
     	
+    	// Set PID controller parameters
+    	this.setAbsoluteTolerance(Constants.PID.TOLERANCE);
+    	getPIDController().setContinuous(false);
+    	getPIDController().setOutputRange(-Constants.SpeedLimits.STACKER_DOWN, Constants.SpeedLimits.STACKER_UP);
+    	
+    	// Add data to test window
     	LiveWindow.addActuator("Stacker", "PID Controller", this.getPIDController());
     	LiveWindow.addSensor("Stacker", "Encoder", encoder);
     }
@@ -62,7 +65,7 @@ public class Stacker extends PIDSubsystem {
     /*
      * Sets the lift motor speed
      */
-    public void moveStacker(double speed) {
+    public void move(double speed) {
     	boolean movingDown = speed < 0;
     	updateDashboard();
     	
@@ -74,6 +77,14 @@ public class Stacker extends PIDSubsystem {
     	}
     }
     
+    /*
+     * Stop the stacker
+     */
+    public void stop() {
+    	disable();
+    	stackerMotor.set(0);
+    }
+    
     @Override
 	protected double returnPIDInput() {
 		return encoder.getDistance();
@@ -81,43 +92,9 @@ public class Stacker extends PIDSubsystem {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		moveStacker(output);
+		move(output);
 	}
 	
-	/*
-	 * Get the height for the next level for the stacker
-	 */
-	public double getNextHeight() {	
-		double current = encoder.getDistance();
-		if(current < Constants.StackerHeights.HOVER_CAN)
-			return Constants.StackerHeights.HOVER_CAN;
-		else if(current < Constants.StackerHeights.CLEAR_FIRST)
-			return Constants.StackerHeights.CLEAR_FIRST;
-		else if(current < Constants.StackerHeights.HOVER_FIRST)
-			return Constants.StackerHeights.HOVER_FIRST;
-		else if(current < Constants.StackerHeights.CLEAR_SECOND)
-			return Constants.StackerHeights.CLEAR_SECOND;
-		else return Constants.StackerHeights.HOVER_SECOND;
-	}
-	
-	/*
-	 * Get the height for the previous level of the stacker
-	 */
-	public double getPreviousHeight() {
-		double current = encoder.getDistance();
-		if(current > Constants.StackerHeights.HOVER_SECOND)
-			return Constants.StackerHeights.HOVER_SECOND;
-		else if(current > Constants.StackerHeights.CLEAR_SECOND)
-			return Constants.StackerHeights.CLEAR_SECOND;
-		else if(current > Constants.StackerHeights.HOVER_FIRST)
-			return Constants.StackerHeights.HOVER_FIRST;
-		else if(current > Constants.StackerHeights.CLEAR_FIRST)
-			return Constants.StackerHeights.CLEAR_FIRST;
-		else if(current > Constants.StackerHeights.HOVER_CAN)
-			return Constants.StackerHeights.HOVER_CAN;
-		else return Constants.StackerHeights.GROUND;
-	}
-    
 	/*
 	 * Check if the stacker is at the lower limit
 	 */
@@ -150,8 +127,6 @@ public class Stacker extends PIDSubsystem {
     	
     	// Put encoder values and next/ previous height on the SMDB
 		SmartDashboard.putNumber("Encoder", encoder.getDistance());
-		SmartDashboard.putNumber("Next Height", getNextHeight());
-		SmartDashboard.putNumber("Previous Height", getPreviousHeight());
     }
 }
 
