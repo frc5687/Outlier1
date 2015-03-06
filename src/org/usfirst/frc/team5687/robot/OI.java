@@ -1,6 +1,10 @@
 package org.usfirst.frc.team5687.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team5687.robot.commands.*;
 
 /**
  * Operator interface for the robot, tying user controls to robot commands
@@ -8,7 +12,13 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 	private Gamepad gamepad;
 	private Joystick joystick;
-	//private Button button;
+	
+	public static final int RESET = 6;
+	public static final int CLEAR_2 = 7;
+	public static final int CLEAR_4 = 9;
+	public static final int DEPOSIT_2 = 8;
+	public static final int DEPOSIT_4 = 10;
+	public static final int CHUTE = 3;
 	
 	/*
 	 * Constructor
@@ -16,11 +26,26 @@ public class OI {
 	public OI() {
 		gamepad = new Gamepad(0);
 		joystick = new Joystick(1);
-		//button = new Button(1);
+		
+		// Create buttons
+		JoystickButton resetButton = new JoystickButton(joystick, RESET);
+		JoystickButton clear2Button = new JoystickButton(joystick, CLEAR_2);
+		JoystickButton clear4Button = new JoystickButton(joystick, CLEAR_4);
+		JoystickButton deposit2Button = new JoystickButton(joystick, DEPOSIT_2);
+		JoystickButton deposit4Button = new JoystickButton(joystick, DEPOSIT_4);
+		JoystickButton chuteButton = new JoystickButton(joystick, CHUTE);
+		
+		// Link buttons to commands
+		resetButton.whenPressed(new ResetStacker());
+		clear2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_FIRST));
+		clear4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));
+		deposit2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT));
+		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_HEIGHT));
+		chuteButton.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CHUTE_HEIGHT));
+		
+		// Add commands to dashboard
+		SmartDashboard.putData("Reset Stacker", new ResetStacker());
 	}
-	
-	
-	
 	
 	/*
 	 * Returns the control value for the left drive motors
@@ -28,7 +53,8 @@ public class OI {
 	 */
 	public double getLeftDriveValue() {
 		// Return the vertical left-stick axis value from the gamepad
-		return gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
+		double raw = gamepad.getRawAxis(Gamepad.Axes.LEFT_Y);
+		return Util.applyDeadband(raw, Constants.Deadbands.DRIVE_STICK);
 	}
 	
 	/*
@@ -37,7 +63,8 @@ public class OI {
 	 */
 	public double getRightDriveValue() {
 		// Return the vertical right-stick axis value for the gamepad
-		return gamepad.getRawAxis(Gamepad.Axes.RIGHT_Y);
+		double raw = gamepad.getRawAxis(Gamepad.Axes.RIGHT_Y);
+		return Util.applyDeadband(raw, Constants.Deadbands.DRIVE_STICK);
 	}
 	
 	/*
@@ -53,7 +80,7 @@ public class OI {
 	 * @return double the desired speed for the stacker motor
 	 */
 	public double getStackerValue() {
-		return Util.applyDeadband(joystick.getRawAxis(1), 0.1);
+		return Util.applyDeadband(joystick.getRawAxis(1), Constants.Deadbands.LIFT_STICK);
 	}
 }
 

@@ -1,10 +1,12 @@
 package org.usfirst.frc.team5687.robot.subsystems;
 
+import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.RobotMap;
 import org.usfirst.frc.team5687.robot.commands.DriveWith2Joysticks;
-import edu.wpi.first.wpilibj.SpeedController;
+
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
@@ -12,17 +14,15 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class DriveTrain extends Subsystem {
     
-	private RobotDrive drive; 
-	private final double LOWER_LIMIT = 0.6;
-	private final double UPPER_LIMIT = 0.8;
+	private RobotDrive drive;
 	
 	/*
 	 * Constructor
 	 */
 	public DriveTrain() {
 		// Setup speed controllers
-		SpeedController leftMotor = new Talon(RobotMap.leftMotor);
-		SpeedController rightMotor = new Talon(RobotMap.rightMotor);
+		Talon leftMotor = new Talon(RobotMap.leftMotor);
+		Talon rightMotor = new Talon(RobotMap.rightMotor);
 		
 		// Initialize the drive object
 		drive = new RobotDrive(leftMotor, rightMotor);
@@ -31,6 +31,10 @@ public class DriveTrain extends Subsystem {
 		// Inverting the drive motors
 		drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
 		drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+		
+		// Add test values
+		LiveWindow.addActuator("Drive", "Left Motor", leftMotor);
+		LiveWindow.addActuator("Drive", "Right Motor", rightMotor);
 	}
 
 	/*
@@ -51,7 +55,8 @@ public class DriveTrain extends Subsystem {
     public void tankDrive(double leftSpeed, double rightSpeed, boolean speedOverride)
     {
     	// Determine which internal speed limit to use
-    	double speedLimit = speedOverride ? UPPER_LIMIT : LOWER_LIMIT;
+    	double speedLimit = speedOverride ? 
+    			Constants.SpeedLimits.BOOST : Constants.SpeedLimits.PRIMARY;
     	
     	if(leftSpeed > speedLimit && rightSpeed > speedLimit) {
     		drive.tankDrive(speedLimit, speedLimit);
