@@ -15,21 +15,23 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class DriveTrain extends Subsystem {
     
 	private RobotDrive drive;
+	Talon leftMotor;
+	Talon rightMotor;
 	
 	/*
 	 * Constructor
 	 */
 	public DriveTrain() {
 		// Setup speed controllers
-		Talon leftMotor = new Talon(RobotMap.leftMotor);
-		Talon rightMotor = new Talon(RobotMap.rightMotor);
+		leftMotor = new Talon(RobotMap.leftMotor);
+		rightMotor = new Talon(RobotMap.rightMotor);
 		
 		// Initialize the drive object
 		drive = new RobotDrive(leftMotor, rightMotor);
 		drive.setSafetyEnabled(true);
 		
 		// Inverting the drive motors
-		drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+		//drive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
 		drive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
 		
 		// Add test values
