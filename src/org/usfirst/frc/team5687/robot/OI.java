@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team5687.robot.Gamepad.Buttons;
 import org.usfirst.frc.team5687.robot.commands.*;
 
 /**
@@ -19,6 +20,8 @@ public class OI {
 	public static final int DEPOSIT_2 = 8;
 	public static final int DEPOSIT_4 = 10;
 	public static final int CHUTE = 3;
+	
+	public static Buttons boostButton = Buttons.RIGHT_STICK;
 	
 	/*
 	 * Constructor
@@ -72,7 +75,7 @@ public class OI {
 	 * @return boolean true if the driver wants to override the speed limit
 	 */
 	public boolean getOverrideButtonValue() {
-		return gamepad.getRawButton(Gamepad.Buttons.RB);
+		return gamepad.getRawButton(boostButton);
 	}
 	
 	/*
