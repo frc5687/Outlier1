@@ -12,6 +12,7 @@ public class Constants {
 	public class SpeedLimits {
 		public static final double PRIMARY = 0.6;
 		public static final double BOOST = 0.8;
+		public static final double ACCELERATION_CAP = 0.04; // Maximum change in speed over 1/50 sec.
 		public static final double STACKER_DOWN = 0.6;
 		public static final double STACKER_UP = 1.0;
 	}
