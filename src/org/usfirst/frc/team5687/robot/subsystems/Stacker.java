@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Stacker extends PIDSubsystem {
     
-	private SpeedController flapLeft;
-	private SpeedController flapRight;
     private SpeedController stackerMotor;
     private DigitalInput lowerSensor;
     private DigitalInput upperSensor;
@@ -35,8 +33,6 @@ public class Stacker extends PIDSubsystem {
     	
     	// Setup the motor
     	stackerMotor = new Talon(RobotMap.stackerMotor);
-    	flapLeft = new Victor(RobotMap.flapLeft);
-    	flapRight = new Victor(RobotMap.flapRight);
     	
     	// Setup the limit switches
     	lowerSensor = new DigitalInput(RobotMap.hallBottom);
