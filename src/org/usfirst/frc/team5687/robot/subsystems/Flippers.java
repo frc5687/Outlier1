@@ -25,7 +25,7 @@ public class Flippers extends Subsystem {
         setDefaultCommand(new MoveFlippersManually());
     }
     
-    public void moveFlippers(double leftSpeed, double rightSpeed) {
+    public void move(double leftSpeed, double rightSpeed) {
     	// TODO make sure the motors go the correct way with respect to the sticks, 
     	// the negative sign may need to be switched from rightSpeed to leftSpeed
     	leftMotor.set(leftSpeed);

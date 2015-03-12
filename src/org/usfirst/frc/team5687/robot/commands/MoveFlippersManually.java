@@ -24,7 +24,7 @@ public class MoveFlippersManually extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	flippers.moveFlippers(oi.getLeftFlipperValue(), oi.getLRightFlipperValue());
+    	flippers.move(oi.getLeftFlipperValue(), oi.getLRightFlipperValue());
     }
 
     // Make this return true when this Command no longer needs to run execute()
