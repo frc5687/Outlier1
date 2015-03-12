@@ -21,7 +21,7 @@ public class OI {
 	public static final int DEPOSIT_4 = 10;
 	public static final int CHUTE = 3;
 	
-	public static Buttons boostButton = Buttons.RIGHT_STICK;
+	public static Buttons boostButton = Buttons.RB;
 	
 	/*
 	 * Constructor
@@ -43,7 +43,7 @@ public class OI {
 		clear2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_FIRST));
 		clear4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));
 		deposit2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT));
-		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_HEIGHT));
+		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_4_HEIGHT));
 		chuteButton.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CHUTE_HEIGHT));
 		
 		// Add commands to dashboard
@@ -84,6 +84,24 @@ public class OI {
 	 */
 	public double getStackerValue() {
 		return Util.applyDeadband(joystick.getRawAxis(1), Constants.Deadbands.LIFT_STICK);
+	}
+	
+	/*
+	 * Returns the control value for the left flipper
+	 * @return double the desired speed for the flipper motor
+	 */
+	public double getLeftFlipperValue() {
+		double raw = gamepad.getRawAxis(Gamepad.Axes.LEFT_X);
+		return Util.applyDeadband(raw, Constants.Deadbands.FLIPPER_STICK);
+	}
+	
+	/*
+	 * Returns the control value for the left flipper
+	 * @return double the desired speed for the flipper motor
+	 */
+	public double getLRightFlipperValue() {
+		double raw = gamepad.getRawAxis(Gamepad.Axes.RIGHT_X);
+		return Util.applyDeadband(raw, Constants.Deadbands.FLIPPER_STICK);
 	}
 }
 

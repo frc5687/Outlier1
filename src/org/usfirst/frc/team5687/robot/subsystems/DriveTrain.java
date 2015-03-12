@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class DriveTrain extends Subsystem {
     
 	private RobotDrive drive;
-	Talon leftMotor;
-	Talon rightMotor;
+	private Talon leftMotor;
+	private Talon rightMotor;
 	
 	/*
 	 * Constructor
@@ -60,6 +60,7 @@ public class DriveTrain extends Subsystem {
     	if(leftMotor.get() - leftSpeed > Constants.SpeedLimits.ACCELERATION_CAP) leftSpeed = leftMotor.get() - Constants.SpeedLimits.ACCELERATION_CAP;
     	if(rightSpeed - rightMotor.get() > Constants.SpeedLimits.ACCELERATION_CAP) rightSpeed = rightMotor.get() + Constants.SpeedLimits.ACCELERATION_CAP;
     	if(rightMotor.get() - rightSpeed > Constants.SpeedLimits.ACCELERATION_CAP) rightSpeed = rightMotor.get() - Constants.SpeedLimits.ACCELERATION_CAP;
+    	
     	// Determine which internal speed limit to use
     	double speedLimit = speedOverride ? 
     			Constants.SpeedLimits.BOOST : Constants.SpeedLimits.PRIMARY;
