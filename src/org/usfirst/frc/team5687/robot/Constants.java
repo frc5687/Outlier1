@@ -7,6 +7,7 @@ public class Constants {
 	public class Deadbands {
 		public static final double DRIVE_STICK = 0.1;
 		public static final double LIFT_STICK = 0.1;
+		public static final double FLIPPER_STICK = 0.1;
 	}
 	
 	public class SpeedLimits {
