@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -19,6 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Stacker extends PIDSubsystem {
     
+	private SpeedController flapLeft;
+	private SpeedController flapRight;
     private SpeedController stackerMotor;
     private DigitalInput lowerSensor;
     private DigitalInput upperSensor;
@@ -31,7 +34,9 @@ public class Stacker extends PIDSubsystem {
     	super(Constants.PID.kP, Constants.PID.kI, Constants.PID.kD);
     	
     	// Setup the motor
-    	stackerMotor = new Victor(RobotMap.stackerMotor);
+    	stackerMotor = new Talon(RobotMap.stackerMotor);
+    	flapLeft = new Victor(RobotMap.flapLeft);
+    	flapRight = new Victor(RobotMap.flapRight);
     	
     	// Setup the limit switches
     	lowerSensor = new DigitalInput(RobotMap.hallBottom);
