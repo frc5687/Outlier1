@@ -12,11 +12,12 @@ public class Constants {
 	public class SpeedLimits {
 		public static final double PRIMARY = 0.6;
 		public static final double BOOST = 0.8;
+		public static final double ACCELERATION_CAP = 0.02; // Maximum change in speed over 1/50 sec.
 		public static final double STACKER_DOWN = 0.6;
 		public static final double STACKER_UP = 1.0;
 	}
 	
-	public class PID {
+	public class PID { 
 		// Proportional constant
 		public static final double kP = 1.0;
 		
@@ -39,6 +40,7 @@ public class Constants {
 		public static final double CLEAR_SECOND = 70.875 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_HEIGHT = 64 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_2_HEIGHT = 37.5 - HEIGHT_OFFSET;
+		public static final double CAN_CHUTE_HEIGHT = 53.5 - HEIGHT_OFFSET;
 		
 		// TODO get the actual measurement
 		public static final double CHUTE_HEIGHT = 52.5 - HEIGHT_OFFSET;
