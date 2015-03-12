@@ -21,7 +21,7 @@ public class OI {
 	public static final int DEPOSIT_4 = 10;
 	public static final int CHUTE = 3;
 	
-	public static Buttons boostButton = Buttons.RIGHT_STICK;
+	public static Buttons boostButton = Buttons.RB;
 	
 	/*
 	 * Constructor
