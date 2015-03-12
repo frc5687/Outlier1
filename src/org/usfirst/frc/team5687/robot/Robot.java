@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team5687.robot.commands.AutonomousCommandGroup;
-import org.usfirst.frc.team5687.robot.commands.ResetStacker;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Flippers;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
