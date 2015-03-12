@@ -43,7 +43,7 @@ public class OI {
 		clear2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_FIRST));
 		clear4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));
 		deposit2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT));
-		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_HEIGHT));
+		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_4_HEIGHT));
 		chuteButton.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CHUTE_HEIGHT));
 		
 		// Add commands to dashboard

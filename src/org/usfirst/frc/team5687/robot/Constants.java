@@ -39,10 +39,8 @@ public class Constants {
 		public static final double GROUND = 0;
 		public static final double CLEAR_FIRST = 45.75 - HEIGHT_OFFSET;
 		public static final double CLEAR_SECOND = 70.875 - HEIGHT_OFFSET;
-		public static final double DEPOSIT_HEIGHT = 64 - HEIGHT_OFFSET;
+		public static final double DEPOSIT_4_HEIGHT = 64 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_2_HEIGHT = 37.5 - HEIGHT_OFFSET;
-		
-		// TODO get the actual measurement
 		public static final double CHUTE_HEIGHT = 53.5 - HEIGHT_OFFSET;
 		
 		/*
