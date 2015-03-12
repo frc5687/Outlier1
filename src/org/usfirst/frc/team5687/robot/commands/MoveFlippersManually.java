@@ -7,7 +7,7 @@ import org.usfirst.frc.team5687.robot.subsystems.Flippers;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Command for basic manual control of the flippers
  */
 public class MoveFlippersManually extends Command {
 

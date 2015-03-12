@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Subsystem for the tote 'pinball flippers' 
  */
 public class Flippers extends Subsystem {
 	
