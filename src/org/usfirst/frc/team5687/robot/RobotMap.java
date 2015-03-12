@@ -12,6 +12,8 @@ public class RobotMap {
     
     // Lift Motor Ports
     public static int stackerMotor = 4;
+    public static int flapLeft = 5;
+    public static int flapRight = 6;
     
     // Encoders
     public static int encoderA = 0;
