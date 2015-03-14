@@ -90,18 +90,13 @@ public class OI {
 	 * Returns the control value for the left flipper
 	 * @return double the desired speed for the flipper motor
 	 */
-	public double getLeftFlipperValue() {
-		double raw = gamepad.getRawAxis(Gamepad.Axes.LEFT_X);
-		return Util.applyDeadband(raw, Constants.Deadbands.FLIPPER_STICK);
-	}
+	
+
 	
 	/*
 	 * Returns the control value for the left flipper
 	 * @return double the desired speed for the flipper motor
 	 */
-	public double getLRightFlipperValue() {
-		double raw = gamepad.getRawAxis(Gamepad.Axes.RIGHT_X);
-		return Util.applyDeadband(raw, Constants.Deadbands.FLIPPER_STICK);
-	}
+	
 }
 
