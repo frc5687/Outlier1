@@ -16,6 +16,13 @@ public class Constants {
 		public static final double STACKER_DOWN = 0.6;
 		public static final double STACKER_UP = 1.0;
 	}
+
+	public class AutonomousSettings {
+		public static final double DRIVE_SPEED = 0.4;
+		public static final int DRIVE_TIME = 3000; // In milliseconds
+		public static final double STACKER_SPEED = 1.0;
+		public static final int LIFT_TIME = 1000; // In milliseconds
+	}
 	
 	public class PID { 
 		// Proportional constant
