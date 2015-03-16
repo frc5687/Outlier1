@@ -31,22 +31,34 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+    	
+// Setup camera streaming, not tested yet
+        
+        try {
+    		server = CameraServer.getInstance();
+    		server.setQuality(50);
+    		server.startAutomaticCapture("cam2"); 
+    				
+    	} catch (Exception e) {
+    		
+    	}
+        
+        // end of camera stuff. 
+    	
 		driveTrain = new DriveTrain();
 		stacker = new Stacker();
-		flippers = new Flippers();
 		oi = new OI();
 		
 		updateDashboard();
 		
+		try {
         // instantiate the command used for the autonomous period
         autonomousCommand = new AutonomousCommandGroup();
+		} catch (Exception e) {
+		}
+
+		
         
-        // Setup camera streaming, not working yet
-        /*
-        server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture("cam0");
-        */
     }
 	
 	public void disabledPeriodic() {
