@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team5687.robot.commands.AutonomousCommandGroup;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5687.robot.subsystems.Flippers;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 /**
@@ -17,10 +16,11 @@ import org.usfirst.frc.team5687.robot.subsystems.Stacker;
  */
 public class Robot extends IterativeRobot {
 
+	
 	public static DriveTrain driveTrain;
 	public static Stacker stacker;
 	public static OI oi;
-	public static Flippers flippers;
+	
 
     Command autonomousCommand;
     
@@ -109,6 +109,5 @@ public class Robot extends IterativeRobot {
     {
     	SmartDashboard.putData(this.driveTrain);
     	SmartDashboard.putData(this.stacker);
-    	SmartDashboard.putData(this.flippers);
     }
 }
