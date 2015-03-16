@@ -7,13 +7,12 @@ public class Constants {
 	public class Deadbands {
 		public static final double DRIVE_STICK = 0.1;
 		public static final double LIFT_STICK = 0.1;
-		public static final double FLIPPER_STICK = 0.1;
 	}
 	
 	public class SpeedLimits {
 		public static final double PRIMARY = 0.6;
 		public static final double BOOST = 0.8;
-		public static final double ACCELERATION_CAP = 0.02; // Maximum change in speed over 1/50 sec.
+		public static final double ACCELERATION_CAP = 0.30; // Maximum change in speed over 1/50 sec. (0 = no moving: .30 seems good)
 		public static final double STACKER_DOWN = 0.6;
 		public static final double STACKER_UP = 1.0;
 	}
