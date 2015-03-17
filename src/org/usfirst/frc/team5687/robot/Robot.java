@@ -5,9 +5,15 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team5687.robot.commands.AutonomousCommandGroup;
+import org.usfirst.frc.team5687.robot.commands.AutonomousDoNothing;
+import org.usfirst.frc.team5687.robot.commands.AutonomousDriveOnly;
+import org.usfirst.frc.team5687.robot.commands.AutonomousLiftAndDrive;
+import org.usfirst.frc.team5687.robot.commands.AutonomousResetAndDrive;
+import org.usfirst.frc.team5687.robot.commands.AutonomousResetLiftAndDrive;
+import org.usfirst.frc.team5687.robot.commands.AutonomousResetOnly;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
@@ -23,6 +29,7 @@ public class Robot extends IterativeRobot {
 	
 
     Command autonomousCommand;
+    SendableChooser autoChooser;
     
     CameraServer server;
 
@@ -31,9 +38,27 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+		driveTrain = new DriveTrain();
+		stacker = new Stacker();
+		oi = new OI();
     	
-// Setup camera streaming, not tested yet
+    	// Set up the autonomous choices...
+    	autoChooser = new SendableChooser();
+    	
+    	// By default, do nothing at all.  This is the safest choice :P
+    	autoChooser.addDefault("Default - None", new AutonomousDoNothing());
         
+    	// Options are displayed in increasing order of risk
+		autoChooser.addObject("Reset Stacker ONLY", new AutonomousResetOnly());
+		autoChooser.addObject("Reset and Drive ONLY", new AutonomousResetAndDrive());
+		autoChooser.addObject("Lift and Drive ONLY", new AutonomousLiftAndDrive());
+		autoChooser.addObject("Drive ONLY", new AutonomousDriveOnly());
+		autoChooser.addObject("Reset, Drive and Lift", new AutonomousResetLiftAndDrive());
+
+    	// Add the chooser to the dashboard - NOT TESTED YET
+		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
+		
+    	// Setup camera streaming, working
         try {
     		server = CameraServer.getInstance();
     		server.setQuality(50);
@@ -45,20 +70,9 @@ public class Robot extends IterativeRobot {
         
         // end of camera stuff. 
     	
-		driveTrain = new DriveTrain();
-		stacker = new Stacker();
-		oi = new OI();
 		
 		updateDashboard();
 		
-		try {
-        // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommandGroup();
-		} catch (Exception e) {
-		}
-
-		
-        
     }
 	
 	public void disabledPeriodic() {
@@ -67,7 +81,8 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+    	autonomousCommand = (Command)autoChooser.getSelected();
+    	if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
