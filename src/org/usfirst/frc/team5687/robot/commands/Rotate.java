@@ -24,10 +24,20 @@ public class Rotate extends Command {
 	private double rightSpeed = 0;
 	private double leftSpeed = 0;
     
+	/**
+	 * Rotate left or right the specified number of degrees.
+	 * @param direction
+	 * @param degrees
+	 */
 	public Rotate(int direction, double degrees) {
         this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.ROTATION));
     }
 
+	/**
+	 * Rotate left or right for the specified number of milliseconds. 
+	 * @param direction
+	 * @param milliseconds
+	 */
 	public Rotate(int direction, int milliseconds) {
         requires(drive);
         // Calculate the settings

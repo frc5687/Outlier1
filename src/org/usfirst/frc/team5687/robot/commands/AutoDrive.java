@@ -11,7 +11,7 @@ import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Command to drive the robot at specified speeds for specified times or distances. 
  */
 public class AutoDrive extends Command {
 
@@ -22,10 +22,21 @@ public class AutoDrive extends Command {
 	private double leftSpeed = 0;
 
 	
+	/**
+	 * Drive at the specified speed for the specified distance in inches.
+	 * 
+	 * @param speed
+	 * @param inches
+	 */
 	public AutoDrive(double speed, double inches) {
         this(speed, (int)Math.round(inches / speed * Constants.Calibration.STRAIGHT));
     }
 	
+	/**
+	 * Drive at the specified speed for the specified time in milliseconds.
+	 * @param speed
+	 * @param timeToDrive
+	 */
 	public AutoDrive(double speed, int timeToDrive) {
         requires(drive);
         this.leftSpeed = speed;
@@ -33,6 +44,12 @@ public class AutoDrive extends Command {
         this.timeToDrive = timeToDrive;
     }
 	
+	/**
+	 * Drive the two sides at different speeds for the specified time in milliseconds.  Intended mainly as a helper for other motions. 
+	 * @param leftSpeed
+	 * @param rightSpeed
+	 * @param timeToDrive
+	 */
 	public AutoDrive(double leftSpeed, double rightSpeed, int timeToDrive) {
         requires(drive);
         this.leftSpeed = leftSpeed;
