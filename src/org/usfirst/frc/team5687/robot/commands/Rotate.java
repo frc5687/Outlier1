@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.usfirst.frc.team5687.robot.Constants;
+import org.usfirst.frc.team5687.robot.Constants.Calibration;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
@@ -11,32 +12,41 @@ import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Command to rotate left or right for a particular time or for a specific degrees
  */
-public class DriveForTime extends Command {
+public class Rotate extends Command {
+	private static int LEFT = -1;
+	private static int RIGHT = 1;
 
 	DriveTrain drive = Robot.driveTrain;
 	private Calendar end = null;
-	private int timeToDrive = 0;
-	private double speed = 0;
-	
+	private int timeToRotate = 0;
+	private double rightSpeed = 0;
+	private double leftSpeed = 0;
     
-	public DriveForTime(double speed, int timeToDrive) {
-        requires(drive);
-        this.speed = speed;
-        this.timeToDrive = timeToDrive;
+	public Rotate(int direction, double degrees) {
+        this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.ROTATION));
     }
 
+	public Rotate(int direction, int milliseconds) {
+        requires(drive);
+        // Calculate the settings
+        this.leftSpeed = Constants.AutonomousSettings.DRIVE_SPEED * direction == LEFT ? -1 : 1;
+        this.rightSpeed = Constants.AutonomousSettings.DRIVE_SPEED * direction == RIGHT ? -1 : 1;
+        
+        this.timeToRotate = milliseconds;
+    }
+	
     // Called just before this Command runs the first time
     protected void initialize() {
     	end = Calendar.getInstance();
     	end.setTime(new Date());
-    	end.add(Calendar.MILLISECOND, timeToDrive);
+    	end.add(Calendar.MILLISECOND, timeToRotate);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		drive.tankDrive(speed, speed, false);
+		drive.tankDrive(leftSpeed, rightSpeed, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

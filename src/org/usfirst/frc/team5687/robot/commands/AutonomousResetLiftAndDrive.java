@@ -23,7 +23,7 @@ public class AutonomousResetLiftAndDrive extends CommandGroup {
     	addSequential(new ResetStacker());
     	
     	// Drive forward at .2 speed for 1000 milliseconds 
-    	addSequential(new DriveForTime(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
     	
     	// Lift to set point
     	addSequential(new MoveStackerToSetpoint(Constants.StackerHeights.CLEAR_SECOND));

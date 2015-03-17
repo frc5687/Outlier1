@@ -22,7 +22,7 @@ public class AutonomousResetAndDrive extends CommandGroup {
     	addSequential(new ResetStacker());
     	
     	// Drive forward at .2 speed for 1000 milliseconds 
-    	addSequential(new DriveForTime(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
     	
     }
     

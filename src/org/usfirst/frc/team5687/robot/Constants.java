@@ -24,6 +24,13 @@ public class Constants {
 		public static final int LIFT_TIME = 1000; // In milliseconds
 	}
 	
+	
+	public class Calibration {
+		public static final double SIDEWAYS = .2; // TODO: These values are fictional.  Need real values!!
+		public static final double ROTATION = .5; // TODO: These values are fictional.  Need real values!!
+		public static final double STRAIGHT = .1; // TODO: These values are fictional.  Need real values!!
+	}
+	
 	public class PID { 
 		// Proportional constant
 		public static final double kP = 1.0;

@@ -19,7 +19,7 @@ public class AutonomousDriveOnly extends CommandGroup {
     public  AutonomousDriveOnly() {
     	    	
     	// Drive forward at set speed for set milliseconds 
-    	addSequential(new DriveForTime(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
     
     }
     

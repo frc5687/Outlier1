@@ -23,7 +23,7 @@ public class AutonomousLiftAndDrive extends CommandGroup {
     	addSequential(new LiftStackerForTime(Constants.AutonomousSettings.LIFT_TIME));
 
     	// Drive forward at set speed for set milliseconds 
-    	addSequential(new DriveForTime(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED, Constants.AutonomousSettings.DRIVE_TIME));
     
     }
     
