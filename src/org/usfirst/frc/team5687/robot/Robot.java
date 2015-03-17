@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Preferences;
 
 import org.usfirst.frc.team5687.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team5687.robot.commands.AutonomousDriveOnly;
@@ -22,6 +23,9 @@ import org.usfirst.frc.team5687.robot.subsystems.Stacker;
  */
 public class Robot extends IterativeRobot {
 
+	Preferences prefs;
+	
+	double testpref = 0;
 	
 	public static DriveTrain driveTrain;
 	public static Stacker stacker;
@@ -38,7 +42,11 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		driveTrain = new DriveTrain();
+		
+    	testpref = prefs.getDouble("TestPreference",1.0);
+    	
+    	
+    	driveTrain = new DriveTrain();
 		stacker = new Stacker();
 		oi = new OI();
     	
@@ -55,10 +63,10 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Drive ONLY", new AutonomousDriveOnly());
 		autoChooser.addObject("Reset, Drive and Lift", new AutonomousResetLiftAndDrive());
 
-    	// Add the chooser to the dashboard - NOT TESTED YET
+    	// Add the chooser to the dashboard, tested and working
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 		
-    	// Setup camera streaming, working
+    	// Setup camera streaming, working sometimes
         try {
     		server = CameraServer.getInstance();
     		server.setQuality(50);
@@ -123,6 +131,6 @@ public class Robot extends IterativeRobot {
     private void updateDashboard()
     {
     	SmartDashboard.putData(this.driveTrain);
-    	SmartDashboard.putData(this.stacker);
+    	SmartDashboard.putData(this.stacker);	
     }
 }
