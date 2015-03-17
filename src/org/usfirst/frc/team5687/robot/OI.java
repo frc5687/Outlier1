@@ -20,6 +20,10 @@ public class OI {
 	public static final int DEPOSIT_2 = 8;
 	public static final int DEPOSIT_4 = 10;
 	public static final int CHUTE = 3;
+
+	public static final int JUMP_LEFT = Buttons.X.ordinal()+1;
+	public static final int JUMP_RIGHT = Buttons.B.ordinal()+1;
+
 	
 	public static Buttons boostButton = Buttons.RB;
 	
@@ -37,6 +41,10 @@ public class OI {
 		JoystickButton deposit2Button = new JoystickButton(joystick, DEPOSIT_2);
 		JoystickButton deposit4Button = new JoystickButton(joystick, DEPOSIT_4);
 		JoystickButton chuteButton = new JoystickButton(joystick, CHUTE);
+
+		JoystickButton jumpLeftButton = new JoystickButton(gamepad, JUMP_LEFT);
+		JoystickButton jumpRightButton = new JoystickButton(gamepad, JUMP_RIGHT);
+		
 		
 		// Link buttons to commands
 		resetButton.whenPressed(new ResetStacker());
@@ -45,6 +53,9 @@ public class OI {
 		deposit2Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_2_HEIGHT));
 		deposit4Button.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.DEPOSIT_4_HEIGHT));
 		chuteButton.whenPressed(new MoveStackerToSetpoint(Constants.StackerHeights.CHUTE_HEIGHT));
+		
+		jumpLeftButton.whenPressed(new MoveSideways(MoveSideways.LEFT, 1));
+		jumpLeftButton.whenPressed(new MoveSideways(MoveSideways.RIGHT, 1));
 		
 		// Add commands to dashboard
 		SmartDashboard.putData("Reset Stacker", new ResetStacker());
