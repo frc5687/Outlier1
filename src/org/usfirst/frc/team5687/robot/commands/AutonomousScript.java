@@ -81,8 +81,9 @@ public class AutonomousScript extends CommandGroup {
 		} else if ("turn".equals(tokens[0]) 
 				|| "rotate".equals(tokens[0])) {
 			return ParseTurnCommand(tokens);
-		} 
-
+		} else if ("wait".equals(tokens[0])) {
+			return ParseWaitCommand(tokens);
+		}
 
 		return null;
 	}
@@ -211,6 +212,38 @@ public class AutonomousScript extends CommandGroup {
 
 
 		return new Rotate(direction, degrees);
+	}
+
+	private Command ParseWaitCommand(String[] tokens) {
+		// wait seconds
+		double waitTime = 0;
+		int tokenCheck = 2;
+
+		if (tokens.length<2) { 
+			return LogError("Wait command requires a time to wait"); 
+		}	
+		// optional addition of phrase "for" (wait FOR 3)
+		if ("for".equals(tokens[2])){
+			tokenCheck ++;
+		}
+		//is it a number?
+		try {
+			waitTime = Double.parseDouble(tokens[tokenCheck]);
+		} catch (NumberFormatException nfe) {
+			return LogError("Invalid time passed to wait command: " + tokens[tokenCheck]);
+		}
+		// if the unit is seconds, 
+		//multiply by 1000 to reach the milliseconds unit required
+		if ("seconds".equals(tokens[tokenCheck +1])||"second".equals(tokens[tokenCheck +1]) ) {
+			waitTime = waitTime * 1000;
+		}
+		//no units besides seconds/milliseconds accepted!
+		else if (!"milliseconds".equals(tokens[tokenCheck +1])) {
+			return LogError("Only units milliseconds/seconds accepted in wait command" + tokens[tokenCheck+1]);
+		}
+
+		return new AutonomousWait(waitTime);
+
 	}
 
 	private Command LogError(String message) {
