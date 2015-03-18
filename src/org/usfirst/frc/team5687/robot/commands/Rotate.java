@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.command.Command;
  * Command to rotate left or right for a particular time or for a specific degrees
  */
 public class Rotate extends Command {
-	private static int LEFT = -1;
-	private static int RIGHT = 1;
+	public static int LEFT = -1;
+	public static int RIGHT = 1;
 
 	DriveTrain drive = Robot.driveTrain;
 	private Calendar end = null;

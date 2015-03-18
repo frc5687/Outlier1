@@ -46,8 +46,8 @@ public class Constants {
 	}
 	
 	public class StackerHeights {
-		// platform starts at 21.125in form floor
-		private static final double HEIGHT_OFFSET = 21.125;
+		// platform starts at 21.125in from floor
+		public static final double HEIGHT_OFFSET = 21.125;
 		
 		public static final double GROUND = 0;
 		public static final double CLEAR_FIRST = 45.75 - HEIGHT_OFFSET;
@@ -67,4 +67,5 @@ public class Constants {
 	// Encoder is 250 cycles-per-revolution, which is 1000 pulses-per-revolution
 	// 1/2000 inches per pulse in 1X mode, 1/8000 in 4X mode
 	public static final double DISTANCE_PER_PULSE = 0.002;
+	public static final String SCRIPTS_PATH = "/home/lvuser/scripts";
 }

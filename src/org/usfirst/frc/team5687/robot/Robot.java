@@ -1,6 +1,15 @@
 package org.usfirst.frc.team5687.robot;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.security.auth.login.LoginException;
+
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,6 +24,7 @@ import org.usfirst.frc.team5687.robot.commands.AutonomousLiftAndDrive;
 import org.usfirst.frc.team5687.robot.commands.AutonomousResetAndDrive;
 import org.usfirst.frc.team5687.robot.commands.AutonomousResetLiftAndDrive;
 import org.usfirst.frc.team5687.robot.commands.AutonomousResetOnly;
+import org.usfirst.frc.team5687.robot.commands.AutonomousScript;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
@@ -22,7 +32,6 @@ import org.usfirst.frc.team5687.robot.subsystems.Stacker;
  * Main robot class
  */
 public class Robot extends IterativeRobot {
-
 	Preferences prefs;
 	
 	double testpref = 0;
@@ -50,6 +59,9 @@ public class Robot extends IterativeRobot {
 		stacker = new Stacker();
 		oi = new OI();
     	
+		// Load the auto scripts from filesystem...
+		List<AutonomousScript> autoScripts = LoadAutoScripts();
+		
     	// Set up the autonomous choices...
     	autoChooser = new SendableChooser();
     	
@@ -63,6 +75,11 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Drive ONLY", new AutonomousDriveOnly());
 		autoChooser.addObject("Reset, Drive and Lift", new AutonomousResetLiftAndDrive());
 
+		// Add autonomous script commands to the autochooser
+		for (AutonomousScript script : autoScripts) {
+			autoChooser.addObject(script.DislayName(), script);
+		}
+		
     	// Add the chooser to the dashboard, tested and working
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 		
@@ -83,6 +100,29 @@ public class Robot extends IterativeRobot {
 		
     }
 	
+	private List<AutonomousScript> LoadAutoScripts() {
+		List<AutonomousScript> work = new LinkedList<AutonomousScript>();
+		// 1) List files in scripts folder...
+		File folder = new File(Constants.SCRIPTS_PATH);
+		
+	    for (final File fileEntry : folder.listFiles()) {
+	        if (!fileEntry.isDirectory()) {
+        		// 2) For each file, add a new AutonomousScript(fileName)  to list
+	        	AutonomousScript script = null;
+	        	try {
+	        		script = new AutonomousScript(fileEntry.getCanonicalPath(), fileEntry.getName());
+	        		work.add(script);
+	        	} catch (IOException ioe) {
+	        		DriverStation.reportError("Unable to process script file: " + fileEntry.getName(), false);
+	        		DriverStation.reportError(ioe.getMessage(), false);
+	        	}
+	            
+	        }
+	    }
+		return work;
+	}
+	
+
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
