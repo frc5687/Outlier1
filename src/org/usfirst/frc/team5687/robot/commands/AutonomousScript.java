@@ -242,7 +242,7 @@ public class AutonomousScript extends CommandGroup {
 			return LogError("Only units milliseconds/seconds accepted in wait command" + tokens[tokenCheck+1]);
 		}
 
-		return new AutonomousWait(waitTime);
+		return new AutonomousWait((int) waitTime);
 
 	}
 

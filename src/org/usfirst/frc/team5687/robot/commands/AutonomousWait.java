@@ -16,10 +16,11 @@ public class AutonomousWait extends CommandGroup {
     
 	private Calendar end = null;
 	
-    public  AutonomousWait(double milliseconds) {
+    public  AutonomousWait(int milliseconds) {
     	    	
-    	// Drive forward at set speed for set milliseconds 
-    	addSequential(new AutoDrive(0,milliseconds));
+    	// TODO find better way to do this,
+    	//but for now, just drive at 0 speed for milliseconds
+    	addSequential(new AutoWait(milliseconds));
     
     }
     
