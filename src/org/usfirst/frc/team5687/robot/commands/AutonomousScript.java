@@ -21,9 +21,13 @@ public class AutonomousScript extends CommandGroup {
 	private String scriptName = null;
 	private boolean isValid = false;
 
+	/*
+	 * Constructor
+	 */
 	public  AutonomousScript(String fullPath, String scriptName) {
 		isValid = true;
 		this.scriptName = scriptName;
+		
 		// Open the file...
 		try {
 			// Get a BufferedReader
@@ -31,19 +35,22 @@ public class AutonomousScript extends CommandGroup {
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String scriptLine;
+			
 			// For each line in file...
 			int line = 1;
 			while ((scriptLine = bufferedReader.readLine()) != null) {
 				scriptLine = scriptLine.trim().toLowerCase();
+				
+				// TODO replace with regex
 				while (scriptLine.contains("  ")) {
 					scriptLine = scriptLine.replace("  ", " ");
 				}
 
 				// If the line is not blank and does not start with a #, parse a command
-				if (scriptLine.length()>0 && scriptLine.charAt(0)!='#') {
+				if (scriptLine.length() > 0 && scriptLine.charAt(0) != '#') {
 					// Add the command to the sequence
 					Command command = ParseLine(scriptLine);
-					if (command!=null) {
+					if (command != null) {
 						addSequential(command);
 					} else {
 						// Log the bad line to RoboRio
@@ -51,25 +58,32 @@ public class AutonomousScript extends CommandGroup {
 						isValid = false;
 					}
 				}
+				
 				line++;
 			}
+			
 			fileReader.close();
 		} catch (IOException e) {
 			LogError(String.format("IO error parsing %1$s: %2$s", scriptName, e.getMessage()));
 		}
-
 	}
 
+	/*
+	 * Parses a line of the script and generates the correct command
+	 */
 	private Command ParseLine(String scriptLine) {
 		// Guard for null
-		if (scriptLine==null) { return null; }
+		if (scriptLine == null) return null;
+		
 		String work = scriptLine.trim().toLowerCase();
+		
+		// TODO replace with regex
 		while (work.contains("  ")) {
 			work = work.replace("  ", " ");
 		}
 
 		// Guard for empty lines
-		if (scriptLine.length()==0) { return null; }
+		if (scriptLine.length() == 0) { return null; }
 
 		// Grab the tokens
 		String[] tokens = scriptLine.split(" ");
@@ -78,14 +92,16 @@ public class AutonomousScript extends CommandGroup {
 			return ParseDriveCommand(tokens);
 		} else if ("move".equals(tokens[0])) {
 			return ParseMoveCommand(tokens);
-		} else if ("turn".equals(tokens[0]) 
-				|| "rotate".equals(tokens[0])) {
+		} else if ("turn".equals(tokens[0]) || "rotate".equals(tokens[0])) {
 			return ParseTurnCommand(tokens);
-		} 
-
+		}
 
 		return null;
 	}
+	
+	/*
+	 * Generates a drive command from a line of script
+	 */
 	private Command ParseDriveCommand(String[] tokens) {
 		// drive direction distance [units [at speed]]
 		int direction = 0;
@@ -94,12 +110,14 @@ public class AutonomousScript extends CommandGroup {
 
 		int tokenCheck = 3;
 
+		// Get direction
 		if ("forward".equals(tokens[1])) {
 			direction = 1;
 		} else if ("back".equals(tokens[1])|| "backwards".equals(tokens[1])) {
 			direction = -1;
 		}
 
+		// Get distance
 		try {
 			inches = Double.parseDouble(tokens[2]);
 		} catch (NumberFormatException nfe) {
@@ -110,10 +128,12 @@ public class AutonomousScript extends CommandGroup {
 			tokenCheck ++;
 		}
 
+		// Separator
 		if (tokenCheck<tokens.length && "at".equals(tokens[tokenCheck])) {
 			tokenCheck ++;
 		}
 
+		// Get speed
 		if (tokenCheck<tokens.length && "speed".equals(tokens[tokenCheck])) {
 			tokenCheck ++;
 		}
@@ -129,23 +149,15 @@ public class AutonomousScript extends CommandGroup {
 			speed = Constants.AutonomousSettings.DRIVE_SPEED;
 		}
 
-
-
-
-
-
-
-
-
-
 		return new AutoDrive(speed * direction, inches);
 	}
 
-
+	/*
+	 * Generates a stacker move command from a line of script
+	 */
 	private Command ParseMoveCommand(String[] tokens) {
 		// move stacker to setpoint 
 		// move stacker to inches
-
 		if (tokens.length<2 || !"stacker".equals(tokens[1])) { 
 			return LogError("Move command requires the phrase 'move stacker to'."); 
 		}
@@ -156,8 +168,7 @@ public class AutonomousScript extends CommandGroup {
 
 		if (tokens.length<4) {
 			return LogError("Move command requires a setpoint or height."); 
-		}		
-
+		}
 
 		double setpoint = -1;
 		try {
@@ -181,7 +192,9 @@ public class AutonomousScript extends CommandGroup {
 		return new MoveStackerToSetpoint(setpoint); 
 	}
 
-
+	/*
+	 * Generates a drivetrain turn command
+	 */
 	private Command ParseTurnCommand(String[] tokens) {
 		// turn direction degrees [units]
 		int direction = 0;
@@ -197,7 +210,7 @@ public class AutonomousScript extends CommandGroup {
 			return LogError("Invalid direction passed to turn command: " + tokens[1]);
 		}
 
-		if (tokens.length<3) { 
+		if (tokens.length < 3) { 
 			return LogError("No degrees passed to turn command."); 
 		}
 
@@ -208,17 +221,21 @@ public class AutonomousScript extends CommandGroup {
 			return LogError("Invalid degrees passed to turn command: " + tokens[2]);
 		}
 
-
-
 		return new Rotate(direction, degrees);
 	}
 
+	/*
+	 * Logs parsing errors
+	 */
 	private Command LogError(String message) {
 		// Log error
 		DriverStation.reportError(message, false);
 		return null;
 	}
 
+	/*
+	 * Parse a double number
+	 */
 	private double ParseDoubleConstant(Class constantClass, String constantName) throws ParseException {
 		try {
 			Field field = constantClass.getField(constantName.toUpperCase());
@@ -239,6 +256,9 @@ public class AutonomousScript extends CommandGroup {
 		}
 	}
 
+	/*
+	 * Parse an integer number
+	 */
 	private int ParseIntConstant(Class constantClass, String constantName) throws ParseException {
 		try {
 			Field field = constantClass.getField(constantName.toUpperCase());
