@@ -2,21 +2,8 @@ package org.usfirst.frc.team5687.robot;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.security.auth.login.LoginException;
-
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Preferences;
 
 import org.usfirst.frc.team5687.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team5687.robot.commands.AutonomousDriveOnly;
@@ -27,6 +14,16 @@ import org.usfirst.frc.team5687.robot.commands.AutonomousResetOnly;
 import org.usfirst.frc.team5687.robot.commands.AutonomousScript;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
+
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Main robot class
@@ -40,7 +37,6 @@ public class Robot extends IterativeRobot {
 	public static Stacker stacker;
 	public static OI oi;
 	
-
     Command autonomousCommand;
     SendableChooser autoChooser;
     
@@ -53,7 +49,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		
     	testpref = prefs.getDouble("TestPreference",1.0);
-    	
     	
     	driveTrain = new DriveTrain();
 		stacker = new Stacker();
@@ -90,38 +85,32 @@ public class Robot extends IterativeRobot {
     		server.startAutomaticCapture("cam2"); 
     				
     	} catch (Exception e) {
-    		
+    		DriverStation.reportError("Failed to setup camera server", true);
     	}
         
-        // end of camera stuff. 
-    	
-		
 		updateDashboard();
-		
     }
 	
 	private List<AutonomousScript> LoadAutoScripts() {
-		List<AutonomousScript> work = new LinkedList<AutonomousScript>();
+		List<AutonomousScript> scripts = new LinkedList<AutonomousScript>();
+		
 		// 1) List files in scripts folder...
 		File folder = new File(Constants.SCRIPTS_PATH);
-		
 	    for (final File fileEntry : folder.listFiles()) {
 	        if (!fileEntry.isDirectory()) {
         		// 2) For each file, add a new AutonomousScript(fileName)  to list
 	        	AutonomousScript script = null;
 	        	try {
 	        		script = new AutonomousScript(fileEntry.getCanonicalPath(), fileEntry.getName());
-	        		work.add(script);
+	        		scripts.add(script);
 	        	} catch (IOException ioe) {
 	        		DriverStation.reportError("Unable to process script file: " + fileEntry.getName(), false);
 	        		DriverStation.reportError(ioe.getMessage(), false);
 	        	}
-	            
 	        }
 	    }
-		return work;
+		return scripts;
 	}
-	
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
