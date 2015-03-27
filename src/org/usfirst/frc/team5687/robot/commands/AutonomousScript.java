@@ -61,30 +61,36 @@ public class AutonomousScript extends CommandGroup {
 	}
 
 	private Command ParseLine(String scriptLine) {
-		// Guard for null
-		if (scriptLine==null) { return null; }
-		String work = scriptLine.trim().toLowerCase();
-		while (work.contains("  ")) {
-			work = work.replace("  ", " ");
+		try {
+		
+			// Guard for null
+			if (scriptLine==null) { return null; }
+			String work = scriptLine.trim().toLowerCase();
+			while (work.contains("  ")) {
+				work = work.replace("  ", " ");
+			}
+	
+			LogError("Parsing line: "+ scriptLine);
+			
+			// Guard for empty lines
+			if (scriptLine.length()==0) { return null; }
+	
+			// Grab the tokens
+			String[] tokens = scriptLine.split(" ");
+	
+			if ("drive".equals(tokens[0])) {
+				return ParseDriveCommand(tokens);
+			} else if ("move".equals(tokens[0])) {
+				return ParseMoveCommand(tokens);
+			} else if ("turn".equals(tokens[0]) 
+					|| "rotate".equals(tokens[0])) {
+				return ParseTurnCommand(tokens);
+			} else if ("wait".equals(tokens[0])) {
+				return ParseWaitCommand(tokens);
+			}
+		} catch (Exception e) {
+			LogError(e.getMessage());
 		}
-
-		// Guard for empty lines
-		if (scriptLine.length()==0) { return null; }
-
-		// Grab the tokens
-		String[] tokens = scriptLine.split(" ");
-
-		if ("drive".equals(tokens[0])) {
-			return ParseDriveCommand(tokens);
-		} else if ("move".equals(tokens[0])) {
-			return ParseMoveCommand(tokens);
-		} else if ("turn".equals(tokens[0]) 
-				|| "rotate".equals(tokens[0])) {
-			return ParseTurnCommand(tokens);
-		} else if ("wait".equals(tokens[0])) {
-			return ParseWaitCommand(tokens);
-		}
-
 		return null;
 	}
 	private Command ParseDriveCommand(String[] tokens) {
@@ -217,13 +223,13 @@ public class AutonomousScript extends CommandGroup {
 	private Command ParseWaitCommand(String[] tokens) {
 		// wait seconds
 		double waitTime = 0;
-		int tokenCheck = 2;
+		int tokenCheck = 1;
 
 		if (tokens.length<2) { 
 			return LogError("Wait command requires a time to wait"); 
 		}	
 		// optional addition of phrase "for" (wait FOR 3)
-		if ("for".equals(tokens[2])){
+		if ("for".equals(tokens[tokenCheck])){
 			tokenCheck ++;
 		}
 		//is it a number?
@@ -232,16 +238,18 @@ public class AutonomousScript extends CommandGroup {
 		} catch (NumberFormatException nfe) {
 			return LogError("Invalid time passed to wait command: " + tokens[tokenCheck]);
 		}
-		// if the unit is seconds, 
-		//multiply by 1000 to reach the milliseconds unit required
-		if ("seconds".equals(tokens[tokenCheck +1])||"second".equals(tokens[tokenCheck +1]) ) {
-			waitTime = waitTime * 1000;
+		if (tokens.length > tokenCheck+1) {
+			tokenCheck++;
+		
+			// if the unit is seconds, 
+			//multiply by 1000 to reach the milliseconds unit required
+			if ("seconds".equals(tokens[tokenCheck])||"second".equals(tokens[tokenCheck]) ) {
+				waitTime = waitTime * 1000;
+			} else if (!"milliseconds".equals(tokens[tokenCheck])) {
+				//no units besides seconds/milliseconds accepted!
+				return LogError("Only units milliseconds/seconds accepted in wait command" + tokens[tokenCheck+1]);
+			}
 		}
-		//no units besides seconds/milliseconds accepted!
-		else if (!"milliseconds".equals(tokens[tokenCheck +1])) {
-			return LogError("Only units milliseconds/seconds accepted in wait command" + tokens[tokenCheck+1]);
-		}
-
 		return new AutonomousWait((int) waitTime);
 
 	}

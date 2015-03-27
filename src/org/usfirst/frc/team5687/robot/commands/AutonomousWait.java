@@ -18,8 +18,6 @@ public class AutonomousWait extends CommandGroup {
 	
     public  AutonomousWait(int milliseconds) {
     	    	
-    	// TODO find better way to do this,
-    	//but for now, just drive at 0 speed for milliseconds
     	addSequential(new AutoWait(milliseconds));
     
     }

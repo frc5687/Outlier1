@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		
-    	testpref = prefs.getDouble("TestPreference",1.0);
+    	//testpref = prefs.getDouble("TestPreference",1.0);
     	
     	
     	driveTrain = new DriveTrain();
