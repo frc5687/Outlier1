@@ -49,12 +49,18 @@ public class AutonomousScript extends CommandGroup {
 				// If the line is not blank and does not start with a #, parse a command
 				if (scriptLine.length() > 0 && scriptLine.charAt(0) != '#') {
 					// Add the command to the sequence
-					Command command = ParseLine(scriptLine);
-					if (command != null) {
-						addSequential(command);
-					} else {
-						// Log the bad line to RoboRio
+					try {
+						Command command = ParseLine(scriptLine);
+						if (command != null) {
+							addSequential(command);
+						} else {
+							// Log the bad line to RoboRio
+							LogError(String.format("Parse error on line %1$d: %2$s", line, scriptLine));
+							isValid = false;
+						}
+					} catch (Exception e) {
 						LogError(String.format("Parse error on line %1$d: %2$s", line, scriptLine));
+						LogError(e.getMessage());
 						isValid = false;
 					}
 				}
@@ -74,7 +80,7 @@ public class AutonomousScript extends CommandGroup {
 	private Command ParseLine(String scriptLine) {
 		// Guard for null
 		if (scriptLine == null) return null;
-		
+
 		String work = scriptLine.trim().toLowerCase();
 		
 		// TODO replace with regex
@@ -95,7 +101,7 @@ public class AutonomousScript extends CommandGroup {
 		} else if ("turn".equals(tokens[0]) || "rotate".equals(tokens[0])) {
 			return ParseTurnCommand(tokens);
 		}
-
+			
 		return null;
 	}
 	
@@ -222,6 +228,40 @@ public class AutonomousScript extends CommandGroup {
 		}
 
 		return new Rotate(direction, degrees);
+	}
+
+	private Command ParseWaitCommand(String[] tokens) {
+		// wait seconds
+		double waitTime = 0;
+		int tokenCheck = 1;
+
+		if (tokens.length<2) { 
+			return LogError("Wait command requires a time to wait"); 
+		}	
+		// optional addition of phrase "for" (wait FOR 3)
+		if ("for".equals(tokens[tokenCheck])){
+			tokenCheck ++;
+		}
+		//is it a number?
+		try {
+			waitTime = Double.parseDouble(tokens[tokenCheck]);
+		} catch (NumberFormatException nfe) {
+			return LogError("Invalid time passed to wait command: " + tokens[tokenCheck]);
+		}
+		if (tokens.length > tokenCheck+1) {
+			tokenCheck++;
+		
+			// if the unit is seconds, 
+			//multiply by 1000 to reach the milliseconds unit required
+			if ("seconds".equals(tokens[tokenCheck])||"second".equals(tokens[tokenCheck]) ) {
+				waitTime = waitTime * 1000;
+			} else if (!"milliseconds".equals(tokens[tokenCheck])) {
+				//no units besides seconds/milliseconds accepted!
+				return LogError("Only units milliseconds/seconds accepted in wait command" + tokens[tokenCheck+1]);
+			}
+		}
+		return new AutonomousWait((int) waitTime);
+
 	}
 
 	/*
