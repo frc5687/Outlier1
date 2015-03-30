@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Command to drive the robot at specified speeds for specified times or distances. 
  */
-public class AutoDrive extends Command {
+public class AutoDrive extends OutlierCommand {
 
 	DriveTrain drive = Robot.driveTrain;
 	private Calendar end = null;
@@ -63,6 +63,8 @@ public class AutoDrive extends Command {
     	end = Calendar.getInstance();
     	end.setTime(new Date());
     	end.add(Calendar.MILLISECOND, timeToDrive);
+    	
+    	LogAction("Driving");
     }
 
     // Called repeatedly when this Command is scheduled to run
