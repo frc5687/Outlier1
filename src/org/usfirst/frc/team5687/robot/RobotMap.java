@@ -12,12 +12,10 @@ public class RobotMap {
     
     // Lift Motor Ports
     public static int stackerMotor = 4;
-    public static int flapLeft = 5;
-    public static int flapRight = 6;
     
     //servo motors
-    public static int leftGuideServo = 0; //TODO: where do these plugin?
-    public static int rightGuideServo = 1; //TODO: where do these plugin?
+    public static int leftGuideServo = 1; //TODO: where do these plugin?
+    public static int rightGuideServo = 2; //TODO: where do these plugin?
     
     // Encoders
     public static int encoderA = 0;

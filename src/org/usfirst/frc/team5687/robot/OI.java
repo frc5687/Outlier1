@@ -24,8 +24,8 @@ public class OI {
 	public static final int JUMP_LEFT = Buttons.X.ordinal()+1;
 	public static final int JUMP_RIGHT = Buttons.B.ordinal()+1;
 
-	public static final int GUIDES_IN = 98;
-	public static final int GUIDES_OUT = 99;
+	public static final int GUIDES_IN = 5;
+	public static final int GUIDES_OUT = 6;
 	
 	
 	public static Buttons boostButton = Buttons.RB;

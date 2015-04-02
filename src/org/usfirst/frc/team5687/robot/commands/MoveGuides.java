@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Command for moving the stacker based on raw OI axis input
  */
-public class MoveGuides extends Command {
+public class MoveGuides extends OutlierCommand {
 	
 	Guides guides = Robot.guides;
 	OI oi = Robot.oi;
@@ -22,6 +22,7 @@ public class MoveGuides extends Command {
 	
     public MoveGuides(double target) {
     	super();
+    	LogAction("Instantiating guides.");
         this.target = target;
     	requires(guides);
     }
@@ -29,19 +30,28 @@ public class MoveGuides extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	endTime = (new Date()).getTime() + Constants.Guides.TIMEOUT;
+    	LogAction(String.format("Moving guides to " + target.toString()));
+    	guides.MoveTo(target);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	guides.MoveTo(target);
+    	LogAction("Left: " + Double.toString(guides.getLeft()) + "\r\n");
+    	LogAction("Right: " + Double.toString(guides.getRight()) + "\r\n");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	// Option 1: see if the guides have reached the target...
-        if (guides.AreAt(target)) { return true; }
-        // Option 2: 
-    	if ((new Date()).getTime() > endTime) { return true; }
+/*        if (guides.AreAt(target)) { 
+        	LogAction(String.format("Guides reached target."));
+        	return true; 
+        }
+*/        // Option 2: 
+    	if ((new Date()).getTime() > endTime) { 
+        	LogAction(String.format("Guide timeout reached."));
+    		return true; 
+    	}
     	return false;
     }
 
@@ -52,6 +62,6 @@ public class MoveGuides extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	endTime = 0;
+    	//endTime = 0;
     }
 }

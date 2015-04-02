@@ -14,18 +14,26 @@ public class Guides extends Subsystem {
 	private Servo rightServo;
 	
 	public Guides() {
-		leftServo = new Servo(RobotMap.leftMotor);
-		rightServo = new Servo(RobotMap.rightMotor);
+		leftServo = new Servo(RobotMap.leftGuideServo);
+		rightServo = new Servo(RobotMap.rightGuideServo);
 		
-		LiveWindow.addActuator("Guides", "Left Guide", leftServo);
-		LiveWindow.addActuator("Guides", "Right Guide", rightServo);
-		LiveWindow.addSensor("Guides", "Left Guide", leftServo);
-		LiveWindow.addSensor("Guides", "Right Guide", rightServo);
+		//LiveWindow.addActuator("Guides", "Left Guide", leftServo);
+		//LiveWindow.addActuator("Guides", "Right Guide", rightServo);
+		//LiveWindow.addSensor("Guides", "Left Guide", leftServo);
+		//LiveWindow.addSensor("Guides", "Right Guide", rightServo);
 	}
 
 	public void MoveTo(double position) {
 		leftServo.set(position);
 		rightServo.set(position);
+	}
+
+	public double getLeft() {
+		return leftServo.get();
+	}
+	
+	public double getRight() {
+		return rightServo.get();
 	}
 	
 	public boolean AreAt(double position) {
@@ -35,7 +43,7 @@ public class Guides extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-        setDefaultCommand(new MoveGuides(Constants.Guides.OUT));
+        // setDefaultCommand(new MoveGuides(Constants.Guides.OUT));
 	}
 
 }
