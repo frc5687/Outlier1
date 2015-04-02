@@ -15,6 +15,10 @@ public class RobotMap {
     public static int flapLeft = 5;
     public static int flapRight = 6;
     
+    //servo motors
+    public static int leftGuideServo = 0; //TODO: where do these plugin?
+    public static int rightGuideServo = 1; //TODO: where do these plugin?
+    
     // Encoders
     public static int encoderA = 0;
     public static int encoderB = 1;

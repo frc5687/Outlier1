@@ -164,10 +164,19 @@ public class AutonomousScript extends CommandGroup {
 	private Command ParseMoveCommand(String[] tokens) {
 		// move stacker to setpoint 
 		// move stacker to inches
-		if (tokens.length<2 || !"stacker".equals(tokens[1])) { 
-			return LogError("Move command requires the phrase 'move stacker to'."); 
+		if (tokens.length<2) {
+			return LogError("Move command requires either 'stacker' or 'guides' next.");
 		}
+		if ("stacker".equals(tokens[1])) { 
+			return ParseStackerCommand(tokens);
+		} else if ("guides".equals(tokens[1])) { 
+			return ParseGuidesCommand(tokens);
+		}
+		
+		return LogError("Move command requires either 'stacker' or 'guides' next.");
+	}
 
+	private Command ParseStackerCommand(String[] tokens) {
 		if (tokens.length<3 || !"to".equals(tokens[2])) {
 			return LogError("Move command requires the phrase 'move stacker to'."); 
 		}
@@ -198,6 +207,20 @@ public class AutonomousScript extends CommandGroup {
 		return new MoveStackerToSetpoint(setpoint); 
 	}
 
+	private Command ParseGuidesCommand(String[] tokens) {
+		if (tokens.length<3) {
+			return LogError("Move guides command requires 'in' or 'out' next."); 
+		} 
+		
+		if ("in".equals(tokens[2])) {
+			return new MoveGuides(Constants.Guides.IN); 
+		} else if ("out".equals(tokens[2])) {
+			return new MoveGuides(Constants.Guides.OUT); 
+		}
+
+		return LogError("Move guides command requires 'in' or 'out' next."); 
+	}
+	
 	/*
 	 * Generates a drivetrain turn command
 	 */
@@ -273,8 +296,15 @@ public class AutonomousScript extends CommandGroup {
 		return null;
 	}
 
-	/*
-	 * Parse a double number
+	/**
+	 * Parses a constant from a script file in the context of a specific class, returning the double value of the constant.
+	 * For example, the script command 'move stacker to CLEAR_FIRST' would result in the call call to this function with
+	 * ParseDoubleConstant(StackerHeights, "CLEAR_FIRST") which would return 45.75
+	 * 
+	 * @param constantClass
+	 * @param constantName
+	 * @return
+	 * @throws ParseException
 	 */
 	private double ParseDoubleConstant(Class constantClass, String constantName) throws ParseException {
 		try {
@@ -296,9 +326,6 @@ public class AutonomousScript extends CommandGroup {
 		}
 	}
 
-	/*
-	 * Parse an integer number
-	 */
 	private int ParseIntConstant(Class constantClass, String constantName) throws ParseException {
 		try {
 			Field field = constantClass.getField(constantName.toUpperCase());

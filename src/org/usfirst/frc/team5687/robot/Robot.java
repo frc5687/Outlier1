@@ -13,6 +13,7 @@ import org.usfirst.frc.team5687.robot.commands.AutonomousResetLiftAndDrive;
 import org.usfirst.frc.team5687.robot.commands.AutonomousResetOnly;
 import org.usfirst.frc.team5687.robot.commands.AutonomousScript;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5687.robot.subsystems.Guides;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 	
 	public static DriveTrain driveTrain;
 	public static Stacker stacker;
+	public static Guides guides;
 	public static OI oi;
 	
     Command autonomousCommand;
@@ -52,6 +54,7 @@ public class Robot extends IterativeRobot {
     	
     	driveTrain = new DriveTrain();
 		stacker = new Stacker();
+		guides = new Guides();
 		oi = new OI();
     	
 		// Load the auto scripts from filesystem...
