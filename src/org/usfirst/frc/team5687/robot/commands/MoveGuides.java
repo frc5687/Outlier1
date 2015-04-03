@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveGuides extends OutlierCommand {
 	
 	Guides guides = Robot.guides;
-	OI oi = Robot.oi;
 	private Double target; 
 	private long endTime;
 	
@@ -36,18 +35,10 @@ public class MoveGuides extends OutlierCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	LogAction("Left: " + Double.toString(guides.getLeft()) + "\r\n");
-    	LogAction("Right: " + Double.toString(guides.getRight()) + "\r\n");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	// Option 1: see if the guides have reached the target...
-/*        if (guides.AreAt(target)) { 
-        	LogAction(String.format("Guides reached target."));
-        	return true; 
-        }
-*/        // Option 2: 
     	if ((new Date()).getTime() > endTime) { 
         	LogAction(String.format("Guide timeout reached."));
     		return true; 
@@ -62,6 +53,5 @@ public class MoveGuides extends OutlierCommand {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//endTime = 0;
     }
 }
