@@ -18,7 +18,7 @@ public class Guides extends Subsystem {
 
 	public void MoveTo(double position) {
 		leftServo.set(position);
-		rightServo.set(position);
+		rightServo.set(Constants.Guides.OUT-position);
 	}
 	
 	@Override

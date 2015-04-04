@@ -85,7 +85,7 @@ public class Robot extends IterativeRobot {
         try {
     		server = CameraServer.getInstance();
     		server.setQuality(50);
-    		server.startAutomaticCapture("cam2"); 
+    		server.startAutomaticCapture("cam0"); 
     				
     	} catch (Exception e) {
     		DriverStation.reportError("Failed to setup camera server", true);

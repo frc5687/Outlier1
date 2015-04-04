@@ -100,6 +100,8 @@ public class AutonomousScript extends CommandGroup {
 			return ParseMoveCommand(tokens);
 		} else if ("turn".equals(tokens[0]) || "rotate".equals(tokens[0])) {
 			return ParseTurnCommand(tokens);
+		} else if ("wait".equals(tokens[0]) || "pause".equals(tokens[0])) {
+			return ParseWaitCommand(tokens);
 		}
 			
 		return null;

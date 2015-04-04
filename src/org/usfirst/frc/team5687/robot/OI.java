@@ -65,7 +65,7 @@ public class OI {
 		guidesOutButton.whenPressed(new MoveGuides(Constants.Guides.OUT));
 
 		jumpLeftButton.whenPressed(new MoveSideways(MoveSideways.LEFT, 1));
-		jumpLeftButton.whenPressed(new MoveSideways(MoveSideways.RIGHT, 1));
+		jumpRightButton.whenPressed(new MoveSideways(MoveSideways.RIGHT, 1));
 		
 		// Add commands to dashboard
 		SmartDashboard.putData("Reset Stacker", new ResetStacker());

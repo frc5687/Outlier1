@@ -32,10 +32,9 @@ public class Constants {
 	}
 	
 	public class Guides {
-		public static final double IN = 0; // TODO: These values are fictional.  Need real values!!
-		public static final double OUT = 1; // TODO: These values are fictional.  Need real values!!
+		public static final double IN = .3; // TODO: These values are fictional.  Need real values!!
+		public static final double OUT = .7; // TODO: These values are fictional.  Need real values!!
 		public static final int MIRROR_CORRECTION = 1; // TODO: These values are fictional.  Need real values!!
-		public static final double FUDGE_FACTOR = .05; // Error factor for comparing actual servo positions to targets
 		public static final int TIMEOUT = 250; // Time in millesconds to allow for deploying or retracting guides.
 	}
 	

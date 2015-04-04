@@ -64,11 +64,12 @@ public class AutoDrive extends OutlierCommand {
     	end.setTime(new Date());
     	end.add(Calendar.MILLISECOND, timeToDrive);
     	
-    	LogAction("Driving");
+    	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d", leftSpeed, rightSpeed, timeToDrive));
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
 		drive.tankDrive(leftSpeed, rightSpeed, false);
     }
 
