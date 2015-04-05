@@ -179,7 +179,7 @@ public class AutonomousScript extends CommandGroup {
 			speed = Constants.AutonomousSettings.DRIVE_SPEED;
 		}
 
-		return new AutoDrive(speed * direction, inches);
+		return new AutoDrive(speed, inches * direction);
 	}
 
 	/**

@@ -23,12 +23,12 @@ public class AutoDrive extends OutlierCommand {
 	
 	/**
 	 * Drive at the specified speed for the specified distance in inches.
-	 * 
+	 * To move backwards, pass negative inches.
 	 * @param speed
 	 * @param inches
 	 */
 	public AutoDrive(double speed, double inches) {
-        this(speed, (int)Math.round(inches / speed * Constants.Calibration.STRAIGHT));
+        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Constants.Calibration.STRAIGHT));
     }
 	
 	/**
