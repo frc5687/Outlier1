@@ -78,6 +78,8 @@ public class AutonomousScript extends CommandGroup {
 			}
 			
 			fileReader.close();
+			logMessage(String.format("Successfully parsed %1$s", scriptName));
+			
 		} catch (IOException e) {
 			logMessage(String.format("IO error parsing %1$s: %2$s", scriptName, e.getMessage()));
 		}

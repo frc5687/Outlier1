@@ -53,7 +53,7 @@ public class AutoDrive extends OutlierCommand {
         requires(drive);
         this.leftSpeed = leftSpeed;
         this.rightSpeed = rightSpeed;
-        this.timeToDrive = timeToDrive;
+        this.timeToDrive = timeToDrive<0?timeToDrive:timeToDrive;
     }
 
 

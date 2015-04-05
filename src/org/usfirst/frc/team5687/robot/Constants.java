@@ -26,14 +26,14 @@ public class Constants {
 	
 	
 	public class Calibration {
-		public static final double SIDEWAYS = .2; // TODO: These values are fictional.  Need real values!!
+		public static final double SIDEWAYS = 100; // TODO: These values are fictional.  Need real values!!
 		public static final double ROTATION = .5; // TODO: These values are fictional.  Need real values!!
 		public static final double STRAIGHT = .1; // TODO: These values are fictional.  Need real values!!
 	}
 	
 	public class Guides {
 		public static final double IN = .3; // TODO: These values are fictional.  Need real values!!
-		public static final double OUT = .7; // TODO: These values are fictional.  Need real values!!
+		public static final double OUT = .6; // TODO: These values are fictional.  Need real values!!
 		public static final int MIRROR_CORRECTION = 1; // TODO: These values are fictional.  Need real values!!
 		public static final int TIMEOUT = 250; // Time in millesconds to allow for deploying or retracting guides.
 	}
