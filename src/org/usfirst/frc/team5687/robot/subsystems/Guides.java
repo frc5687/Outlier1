@@ -12,8 +12,8 @@ public class Guides extends Subsystem {
 	private Servo rightServo;
 	
 	public Guides() {
-		leftServo = new Servo(RobotMap.leftGuideServo);
-		rightServo = new Servo(RobotMap.rightGuideServo);
+		leftServo = new SpringRCServo(RobotMap.leftGuideServo);
+		rightServo = new SpringRCServo(RobotMap.rightGuideServo);
 	}
 
 	public void MoveTo(double position) {
