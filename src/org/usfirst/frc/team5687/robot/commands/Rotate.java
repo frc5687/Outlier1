@@ -19,7 +19,7 @@ public class Rotate extends Command {
 	public static int RIGHT = 1;
 
 	DriveTrain drive = Robot.driveTrain;
-	private Calendar end = null;
+	private long end = 0;
 	private int timeToRotate = 0;
 	private double rightSpeed = 0;
 	private double leftSpeed = 0;
@@ -49,9 +49,7 @@ public class Rotate extends Command {
 	
     // Called just before this Command runs the first time
     protected void initialize() {
-    	end = Calendar.getInstance();
-    	end.setTime(new Date());
-    	end.add(Calendar.MILLISECOND, timeToRotate);
+    	end = (new Date()).getTime() + timeToRotate;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -61,9 +59,7 @@ public class Rotate extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Calendar now = Calendar.getInstance();
-    	now.setTime(new Date());
-    	return !now.before(end);
+    	return (new Date()).getTime() > end;
     }
 
     // Called once after isFinished returns true

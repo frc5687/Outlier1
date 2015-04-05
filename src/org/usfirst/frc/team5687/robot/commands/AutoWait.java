@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoWait extends Command {
 
 	DriveTrain drive = Robot.driveTrain;
-	private Calendar end = null;
+	private long end = 0;
 	private int timeToWait = 0;
 	
 
@@ -28,9 +28,7 @@ public class AutoWait extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	end = Calendar.getInstance();
-    	end.setTime(new Date());
-    	end.add(Calendar.MILLISECOND, timeToWait);
+    	end = (new Date()).getTime() + timeToWait;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -40,9 +38,7 @@ public class AutoWait extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Calendar now = Calendar.getInstance();
-    	now.setTime(new Date());
-    	return !now.before(end);
+    	return (new Date()).getTime() > end;
     }
 
     // Called once after isFinished returns true

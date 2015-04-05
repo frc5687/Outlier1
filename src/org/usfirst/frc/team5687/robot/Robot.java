@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
     	
 		// Load the auto scripts from filesystem...
-		List<AutonomousScript> autoScripts = LoadAutoScripts();
+		List<AutonomousScript> autoScripts = loadAutoScripts();
 		
     	// Set up the autonomous choices...
     	autoChooser = new SendableChooser();
@@ -75,7 +75,7 @@ public class Robot extends IterativeRobot {
 
 		// Add autonomous script commands to the autochooser
 		for (AutonomousScript script : autoScripts) {
-			autoChooser.addObject(script.DislayName(), script);
+			autoChooser.addObject(script.getDislayName(), script);
 		}
 		
     	// Add the chooser to the dashboard, tested and working
@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
 		updateDashboard();
     }
 	
-	private List<AutonomousScript> LoadAutoScripts() {
+	private List<AutonomousScript> loadAutoScripts() {
 		List<AutonomousScript> scripts = new LinkedList<AutonomousScript>();
 		
 		// 1) List files in scripts folder...
@@ -164,5 +164,6 @@ public class Robot extends IterativeRobot {
     {
     	SmartDashboard.putData(this.driveTrain);
     	SmartDashboard.putData(this.stacker);	
+    	SmartDashboard.putData(this.guides);	
     }
 }

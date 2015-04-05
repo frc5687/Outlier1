@@ -21,15 +21,23 @@ public class AutonomousScript extends CommandGroup {
 	private String scriptName = null;
 	private boolean isValid = false;
 
-	/*
-	 * Constructor
+	/**
+	 * Parses the supplied script file and builds an AutonomousScript from it.
+	 * Logs any parsing errors.
+	 * If the script parses successfully, the DisplayName property will include the OK suffix and IsValid will return true.
+	 * Otherwise, DisplayName will include the Error suffix and IsValid will return false.
+	 *    
+	 * @param fullPath The full path to the script.  Typically this should be /home/lvuser/scripts. 
+	 * @param scriptName The name of the script file.
 	 */
-	public  AutonomousScript(String fullPath, String scriptName) {
+	public AutonomousScript(String fullPath, String scriptName) {
 		isValid = true;
 		this.scriptName = scriptName;
 		
 		// Open the file...
 		try {
+			logMessage(String.format("Parsing script file: %1$s", scriptName));
+
 			// Get a BufferedReader
 			File file = new File(fullPath);
 			FileReader fileReader = new FileReader(file);
@@ -39,28 +47,29 @@ public class AutonomousScript extends CommandGroup {
 			// For each line in file...
 			int line = 1;
 			while ((scriptLine = bufferedReader.readLine()) != null) {
-				scriptLine = scriptLine.trim().toLowerCase();
+				// Prune off start and end whitespace and convert to lowercase to make matching easier
+				scriptLine = scriptLine.trim().toLowerCase().replaceAll("\\s+", " ");
 				
-				// TODO replace with regex
-				while (scriptLine.contains("  ")) {
-					scriptLine = scriptLine.replace("  ", " ");
-				}
 
 				// If the line is not blank and does not start with a #, parse a command
 				if (scriptLine.length() > 0 && scriptLine.charAt(0) != '#') {
 					// Add the command to the sequence
 					try {
-						Command command = ParseLine(scriptLine);
+						Command command = parseLine(scriptLine);
 						if (command != null) {
 							addSequential(command);
 						} else {
 							// Log the bad line to RoboRio
-							LogError(String.format("Parse error on line %1$d: %2$s", line, scriptLine));
+							logMessage(String.format("Parse error on line %1$d: %2$s", line, scriptLine));
 							isValid = false;
 						}
+					} catch (ScriptParseException spe) {
+						logMessage(String.format("Parse error on line %1$d: %2$s", line, scriptLine));
+						logMessage(spe.getMessage());
+						isValid = false;
 					} catch (Exception e) {
-						LogError(String.format("Parse error on line %1$d: %2$s", line, scriptLine));
-						LogError(e.getMessage());
+						logMessage(String.format("Unexpected error on line %1$d: %2$s", line, scriptLine));
+						logMessage(e.getMessage());
 						isValid = false;
 					}
 				}
@@ -70,23 +79,19 @@ public class AutonomousScript extends CommandGroup {
 			
 			fileReader.close();
 		} catch (IOException e) {
-			LogError(String.format("IO error parsing %1$s: %2$s", scriptName, e.getMessage()));
+			logMessage(String.format("IO error parsing %1$s: %2$s", scriptName, e.getMessage()));
 		}
 	}
 
-	/*
-	 * Parses a line of the script and generates the correct command
+	/**
+	 * Parses a line of the script and generates a Command.
+	 * 
+	 * @param scriptLine
+	 * @return
 	 */
-	private Command ParseLine(String scriptLine) {
+	private Command parseLine(String scriptLine) throws ScriptParseException {
 		// Guard for null
 		if (scriptLine == null) return null;
-
-		String work = scriptLine.trim().toLowerCase();
-		
-		// TODO replace with regex
-		while (work.contains("  ")) {
-			work = work.replace("  ", " ");
-		}
 
 		// Guard for empty lines
 		if (scriptLine.length() == 0) { return null; }
@@ -94,23 +99,30 @@ public class AutonomousScript extends CommandGroup {
 		// Grab the tokens
 		String[] tokens = scriptLine.split(" ");
 
-		if ("drive".equals(tokens[0])) {
-			return ParseDriveCommand(tokens);
-		} else if ("move".equals(tokens[0])) {
-			return ParseMoveCommand(tokens);
-		} else if ("turn".equals(tokens[0]) || "rotate".equals(tokens[0])) {
-			return ParseTurnCommand(tokens);
-		} else if ("wait".equals(tokens[0]) || "pause".equals(tokens[0])) {
-			return ParseWaitCommand(tokens);
+		switch(tokens[0]) {
+			case "drive":
+				return parseDriveCommand(tokens);
+			case "move":
+				return parseMoveCommand(tokens);
+			case "turn":
+			case "rotate":
+				return parseTurnCommand(tokens);
+			case "wait":
+			case "pause":
+				return parseWaitCommand(tokens);
+			case "reset":
+				return parseResetCommand(tokens);
 		}
 			
-		return null;
+		throw new ScriptParseException("Unrecognized token: '%1$s'", tokens[0]);
 	}
 	
-	/*
-	 * Generates a drive command from a line of script
+	/**
+	 * Parses a drive command.
+	 * @param tokens
+	 * @return
 	 */
-	private Command ParseDriveCommand(String[] tokens) {
+	private Command parseDriveCommand(String[] tokens) {
 		// drive direction distance [units [at speed]]
 		int direction = 0;
 		double inches = 0;
@@ -119,17 +131,25 @@ public class AutonomousScript extends CommandGroup {
 		int tokenCheck = 3;
 
 		// Get direction
-		if ("forward".equals(tokens[1])) {
-			direction = 1;
-		} else if ("back".equals(tokens[1])|| "backwards".equals(tokens[1])) {
-			direction = -1;
+		switch (tokens[1]) {
+			case "forward":
+			case "forwards":
+			case "ahead":
+				direction = 1;
+				break;
+			case "back":
+			case "backwards":
+				direction = -1;
+				break;
+			default:
+				throw new ScriptParseException("Invalid direction passed to drive command: '%1$s'.  Expected 'forward' or 'backward'.", tokens[1]);
 		}
 
 		// Get distance
 		try {
 			inches = Double.parseDouble(tokens[2]);
 		} catch (NumberFormatException nfe) {
-			return LogError("Invalid distance passed to drive command: " + tokens[2]);
+			throw new ScriptParseException("Invalid distance passed to drive command: '%1$s'.", tokens[2]);
 		}
 
 		if (tokenCheck<tokens.length && "inches".equals(tokens[tokenCheck])) {
@@ -150,7 +170,7 @@ public class AutonomousScript extends CommandGroup {
 			try {
 				speed = Double.parseDouble(tokens[tokenCheck]);
 			} catch (NumberFormatException nfe) {
-				return LogError("Invalid speed passed to drive command: " + tokens[tokenCheck]);
+				throw new ScriptParseException("Invalid speed passed to drive command: '%1$s'.", tokens[tokenCheck]);
 			}
 		}
 		else {
@@ -160,33 +180,56 @@ public class AutonomousScript extends CommandGroup {
 		return new AutoDrive(speed * direction, inches);
 	}
 
-	/*
-	 * Generates a stacker move command from a line of script
+	/**
+	 * Parses a 'move stacker' or 'move guides' command. 
+	 * @param tokens
+	 * @return
 	 */
-	private Command ParseMoveCommand(String[] tokens) {
+	private Command parseMoveCommand(String[] tokens) {
 		// move stacker to setpoint 
 		// move stacker to inches
 		if (tokens.length<2) {
-			return LogError("Move command requires either 'stacker' or 'guides' next.");
+			throw new ScriptParseException("Move command requires either 'stacker' or 'guides' next.");
 		}
-		if ("stacker".equals(tokens[1])) { 
-			return ParseStackerCommand(tokens);
-		} else if ("guides".equals(tokens[1])) { 
-			return ParseGuidesCommand(tokens);
+		switch(tokens[1]) {
+			case "stacker":
+				return parseStackerCommand(tokens);
+			case "guides":
+			case "bumpers":
+			case "guide":
+			case "bumper":
+				return parseGuidesCommand(tokens);
 		}
 		
-		return LogError("Move command requires either 'stacker' or 'guides' next.");
+		throw new ScriptParseException("Move command requires either 'stacker' or 'guides' next.");
 	}
 
-	private Command ParseStackerCommand(String[] tokens) {
-		if (tokens.length<3 || !"to".equals(tokens[2])) {
-			return LogError("Move command requires the phrase 'move stacker to'."); 
+	/**
+	 * Parses a 'move stacker' command.
+	 * @param tokens
+	 * @return
+	 */
+	private Command parseStackerCommand(String[] tokens) {
+		if (tokens.length<3) {
+			throw new ScriptParseException("Move command requires the phrase 'move stacker to'."); 
 		}
 
+		if (!"to".equals(tokens[2])) {
+			throw new ScriptParseException("Move command requires the phrase 'move stacker to'.  Found '%1$s'.", tokens[2]); 
+		}
+		
+		
 		if (tokens.length<4) {
-			return LogError("Move command requires a setpoint or height."); 
+			throw new ScriptParseException("Move command requires a setpoint or height."); 
 		}
 
+		// Special handling for 'move stacker to GROUND'.
+		// We want to translate this into a ResetStacker() call. 
+		if ("ground".equals(tokens[3])) {
+			return new ResetStacker();
+		}
+		
+		// Otherwise, try to parse it as a double...
 		double setpoint = -1;
 		try {
 			setpoint = Double.parseDouble(tokens[3]) - Constants.StackerHeights.HEIGHT_OFFSET;
@@ -195,23 +238,29 @@ public class AutonomousScript extends CommandGroup {
 		}
 
 		if (setpoint < 0) {
-			// Try to parse as a setpoint
+			// And if that fails, try to parse it as a double constant in the StackerHeights class
 			try {
-				setpoint = ParseDoubleConstant(Constants.StackerHeights.class, tokens[3]);
+				setpoint = parseDoubleConstant(Constants.StackerHeights.class, tokens[3]);
 			} catch (ParseException pe) {
 				setpoint = -1;
 			}
 		}
 
 		if (setpoint < 0) {
-			return LogError("Unable to determine height or setpoint for move stacker command: " + tokens[3]);
+			// Still no dice.  Report it!
+			throw new ScriptParseException("Unable to determine height or setpoint for move stacker command: '%1$s'.",tokens[3]);
 		}
 		return new MoveStackerToSetpoint(setpoint); 
 	}
 
-	private Command ParseGuidesCommand(String[] tokens) {
+	/**
+	 * Parses a 'move guides' command.
+	 * @param tokens
+	 * @return
+	 */
+	private Command parseGuidesCommand(String[] tokens) {
 		if (tokens.length<3) {
-			return LogError("Move guides command requires 'in' or 'out' next."); 
+			throw new ScriptParseException("Move guides command requires 'in' or 'out' next."); 
 		} 
 		
 		if ("in".equals(tokens[2])) {
@@ -220,48 +269,81 @@ public class AutonomousScript extends CommandGroup {
 			return new MoveGuides(Constants.Guides.OUT); 
 		}
 
-		return LogError("Move guides command requires 'in' or 'out' next."); 
+		throw new ScriptParseException("Move guides command requires 'in' or 'out' next. Found: '%1$s'.", tokens[2]); 
+	}
+
+	
+	/**
+	 * Parse a 'reset stacker' command
+	 * @param tokens
+	 * @return
+	 */
+	private Command parseResetCommand(String[] tokens) {
+		if (tokens.length<2) {
+			throw new ScriptParseException("Expected token 'stacker' after reset.");
+		}
+		
+		if (!"stacker".equals(tokens[1])) {
+			throw new ScriptParseException("Expected token 'stacker' after reset.  Found '%1$s'.",tokens[1]);
+		}
+		
+		return new ResetStacker();
 	}
 	
-	/*
-	 * Generates a drivetrain turn command
+	/**
+	 * Parse a turn command.
+	 * @param tokens
+	 * @return
 	 */
-	private Command ParseTurnCommand(String[] tokens) {
+	private Command parseTurnCommand(String[] tokens) {
 		// turn direction degrees [units]
 		int direction = 0;
+		
 		if (tokens.length<2) { 
-			return LogError("No direction passed to turn command."); 
+			throw new ScriptParseException("No direction passed to turn command."); 
 		}
-		if ("left".equals(tokens[1])) {
-			direction = Rotate.LEFT;
-		} else if ("right".equals(tokens[1])) {
-			direction = Rotate.RIGHT;
-		} else {
-			// Log parse error
-			return LogError("Invalid direction passed to turn command: " + tokens[1]);
+		
+		switch (tokens[1]) {
+			case "left":
+			case "counter":
+			case "counterclock":
+			case "counterclockwise":
+				direction = Rotate.LEFT;
+				break;
+			case "right":
+			case "clockwise":
+				direction = Rotate.RIGHT;
+				break;
+			default:
+				throw new ScriptParseException("Invalid direction passed to turn command: '%1$s'.", tokens[1]);
 		}
 
 		if (tokens.length < 3) { 
-			return LogError("No degrees passed to turn command."); 
+			throw new ScriptParseException("No degrees passed to turn command."); 
 		}
 
 		double degrees = 0;
 		try {
 			degrees = Double.parseDouble(tokens[2]);
 		} catch (NumberFormatException nfe) {
-			return LogError("Invalid degrees passed to turn command: " + tokens[2]);
+			throw new ScriptParseException("Invalid degrees passed to turn command: '%1$s'.", tokens[2]);
 		}
 
 		return new Rotate(direction, degrees);
 	}
 
-	private Command ParseWaitCommand(String[] tokens) {
+	/**
+	 * Parse a wait command.
+	 * @param tokens
+	 * @return
+	 */
+	private Command parseWaitCommand(String[] tokens) {
 		// wait seconds
 		double waitTime = 0;
 		int tokenCheck = 1;
 
 		if (tokens.length<2) { 
-			return LogError("Wait command requires a time to wait"); 
+			throw new ScriptParseException("Wait command requires a time to wait"); 
 		}	
 		// optional addition of phrase "for" (wait FOR 3)
 		if ("for".equals(tokens[tokenCheck])){
@@ -271,8 +353,9 @@ public class AutonomousScript extends CommandGroup {
 		try {
 			waitTime = Double.parseDouble(tokens[tokenCheck]);
 		} catch (NumberFormatException nfe) {
-			return LogError("Invalid time passed to wait command: " + tokens[tokenCheck]);
+			throw new ScriptParseException("Invalid time passed to wait command: '%1$s'.", tokens[tokenCheck]);
 		}
+		
 		if (tokens.length > tokenCheck+1) {
 			tokenCheck++;
 		
@@ -282,20 +365,20 @@ public class AutonomousScript extends CommandGroup {
 				waitTime = waitTime * 1000;
 			} else if (!"milliseconds".equals(tokens[tokenCheck])) {
 				//no units besides seconds/milliseconds accepted!
-				return LogError("Only units milliseconds/seconds accepted in wait command" + tokens[tokenCheck+1]);
+				throw new ScriptParseException("Only units milliseconds/seconds accepted in wait command.  Found: '%1$s'.", tokens[tokenCheck+1]);
 			}
 		}
 		return new AutonomousWait((int) waitTime);
 
 	}
 
-	/*
-	 * Logs parsing errors
+	/**
+	 * Sends a message to the driverstation logs.
+	 * @param message
 	 */
-	private Command LogError(String message) {
+	private void logMessage(String message) {
 		// Log error
-		DriverStation.reportError(message, false);
-		return null;
+		DriverStation.reportError(message + "\r\n", false);
 	}
 
 	/**
@@ -308,7 +391,7 @@ public class AutonomousScript extends CommandGroup {
 	 * @return
 	 * @throws ParseException
 	 */
-	private double ParseDoubleConstant(Class constantClass, String constantName) throws ParseException {
+	private double parseDoubleConstant(Class constantClass, String constantName) throws ParseException {
 		try {
 			Field field = constantClass.getField(constantName.toUpperCase());
 			if ((field.getModifiers() & (Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL)) > 0) {
@@ -328,7 +411,7 @@ public class AutonomousScript extends CommandGroup {
 		}
 	}
 
-	private int ParseIntConstant(Class constantClass, String constantName) throws ParseException {
+	private int parseIntConstant(Class constantClass, String constantName) throws ParseException {
 		try {
 			Field field = constantClass.getField(constantName.toUpperCase());
 			if ((field.getModifiers() & (Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL)) > 0) {
@@ -348,7 +431,20 @@ public class AutonomousScript extends CommandGroup {
 		}
 	}
 
-	public String DislayName() {
+	/**
+	 * Returns the display name of the script.
+	 * This is the script name with a suffix of OK or ERROR to reflect it parsing status.
+	 * @return the script name with a suffix of OF if the script parsed successfully and ERROR if it did not.
+	 */
+	public String getDislayName() {
 		return scriptName + (isValid ? " - OK" : " - ERROR");
+	}
+	
+	/**
+	 * The parsing status of the script.
+	 * @return True if the script parsed successfully and false otherwise.
+	 */
+	public boolean isValid() {
+		return this.isValid;
 	}
 }

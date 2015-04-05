@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5687.robot.commands;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import org.usfirst.frc.team5687.robot.Constants;
@@ -16,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoDrive extends OutlierCommand {
 
 	DriveTrain drive = Robot.driveTrain;
-	private Calendar end = null;
+	private long end = 0;
 	private int timeToDrive = 0;
 	private double rightSpeed = 0;
 	private double leftSpeed = 0;
@@ -60,9 +59,7 @@ public class AutoDrive extends OutlierCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	end = Calendar.getInstance();
-    	end.setTime(new Date());
-    	end.add(Calendar.MILLISECOND, timeToDrive);
+    	end = (new Date()).getTime() + timeToDrive;
     	
     	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d", leftSpeed, rightSpeed, timeToDrive));
     }
@@ -75,9 +72,7 @@ public class AutoDrive extends OutlierCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Calendar now = Calendar.getInstance();
-    	now.setTime(new Date());
-    	return !now.before(end);
+    	return (new Date()).getTime() > end;
     }
 
     // Called once after isFinished returns true

@@ -17,7 +17,7 @@ public class MoveGuides extends OutlierCommand {
 	
 	Guides guides = Robot.guides;
 	private Double target; 
-	private long endTime;
+	private long end = 0;
 	
     public MoveGuides(double target) {
     	super();
@@ -28,7 +28,7 @@ public class MoveGuides extends OutlierCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	endTime = (new Date()).getTime() + Constants.Guides.TIMEOUT;
+    	end = (new Date()).getTime() + Constants.Guides.TIMEOUT;
     	LogAction(String.format("Moving guides to " + target.toString()));
     	guides.MoveTo(target);
     }
@@ -39,11 +39,7 @@ public class MoveGuides extends OutlierCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if ((new Date()).getTime() > endTime) { 
-        	LogAction(String.format("Guide timeout reached."));
-    		return true; 
-    	}
-    	return false;
+    	return (new Date()).getTime() > end;
     }
 
     // Called once after isFinished returns true
