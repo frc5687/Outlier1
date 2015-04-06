@@ -1,9 +1,8 @@
 package org.usfirst.frc.team5687.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.PWM.PeriodMultiplier;
-import edu.wpi.first.wpilibj.communication.UsageReporting;
 import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary.tResourceType;
+import edu.wpi.first.wpilibj.communication.UsageReporting;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class SpringRCServo extends Servo {

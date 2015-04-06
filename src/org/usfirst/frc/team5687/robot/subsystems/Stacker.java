@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
