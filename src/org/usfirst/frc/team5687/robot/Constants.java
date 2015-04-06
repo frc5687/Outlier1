@@ -32,9 +32,13 @@ public class Constants {
 	}
 	
 	public class Guides {
-		public static final double IN = .3; // TODO: These values are fictional.  Need real values!!
-		public static final double OUT = .6; // TODO: These values are fictional.  Need real values!!
-		public static final int MIRROR_CORRECTION = 1; // TODO: These values are fictional.  Need real values!!
+		public static final int IN=-1;
+		public static final int OUT=1;
+		
+		public static final double LEFT_IN = .3; // TODO: These values are fictional.  Need real values!!
+		public static final double LEFT_OUT = .6; // TODO: These values are fictional.  Need real values!!
+		public static final double RIGHT_IN = .6; // TODO: These values are fictional.  Need real values!!
+		public static final double RIGHT_OUT = .3; // TODO: These values are fictional.  Need real values!!
 		public static final int TIMEOUT = 250; // Time in millesconds to allow for deploying or retracting guides.
 	}
 	

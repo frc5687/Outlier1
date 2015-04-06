@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveGuides extends OutlierCommand {
 	
 	Guides guides = Robot.guides;
-	private Double target; 
+	private int target; 
 	private long end = 0;
 	
-    public MoveGuides(double target) {
+    public MoveGuides(int target) {
     	super();
     	LogAction("Instantiating guides.");
         this.target = target;
@@ -29,8 +29,18 @@ public class MoveGuides extends OutlierCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	end = (new Date()).getTime() + Constants.Guides.TIMEOUT;
-    	LogAction(String.format("Moving guides to " + target.toString()));
-    	guides.MoveTo(target);
+    	switch(target) {
+    		case Constants.Guides.IN:
+    	    	LogAction(String.format("Moving guides IN"));
+    	    	guides.MoveIn();
+    	    	break;
+    		case Constants.Guides.OUT:
+    	    	LogAction(String.format("Moving guides OUT"));
+    	    	guides.MoveOut();
+    	    	break;
+    	    default:
+    	    	LogAction(String.format("Unrecognized guides target: '%1$n'", target));
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

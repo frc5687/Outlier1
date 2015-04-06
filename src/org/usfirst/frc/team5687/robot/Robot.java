@@ -162,8 +162,8 @@ public class Robot extends IterativeRobot {
     
     private void updateDashboard()
     {
-    	SmartDashboard.putData(this.driveTrain);
-    	SmartDashboard.putData(this.stacker);	
-    	SmartDashboard.putData(this.guides);	
+    	SmartDashboard.putData(Robot.driveTrain);
+    	SmartDashboard.putData(Robot.stacker);	
+    	SmartDashboard.putData(Robot.guides);	
     }
 }

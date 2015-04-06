@@ -16,11 +16,16 @@ public class Guides extends Subsystem {
 		rightServo = new SpringRCServo(RobotMap.rightGuideServo);
 	}
 
-	public void MoveTo(double position) {
-		leftServo.set(position);
-		rightServo.set(Constants.Guides.OUT-position);
+	public void MoveIn() {
+		leftServo.set(Constants.Guides.LEFT_IN);
+		rightServo.set(Constants.Guides.RIGHT_IN);
 	}
-	
+
+	public void MoveOut() {
+		leftServo.set(Constants.Guides.LEFT_OUT);
+		rightServo.set(Constants.Guides.RIGHT_OUT);
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 	}
