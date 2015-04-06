@@ -5,9 +5,6 @@ import java.util.Date;
 import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5687.robot.subsystems.Stacker;
-
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Command to drive the robot at specified speeds for specified times or distances. 
@@ -27,6 +24,7 @@ public class AutoDrive extends OutlierCommand {
 	 * @param speed
 	 * @param inches
 	 */
+	// TODO we may want to differentiate this from the (speed, time) constructor, so someone doesn't call the wrong one by mistake
 	public AutoDrive(double speed, double inches) {
         this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Constants.Calibration.STRAIGHT));
     }
