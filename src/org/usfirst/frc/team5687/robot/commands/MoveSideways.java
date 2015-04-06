@@ -2,11 +2,14 @@ package org.usfirst.frc.team5687.robot.commands;
 
 import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.Constants.Calibration;
+import org.usfirst.frc.team5687.robot.Util;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * Commandgroup to move sideways a set direction and distance.
  */
-public class MoveSideways extends OutlierCommandGroup {
+public class MoveSideways extends CommandGroup {
 	public static int LEFT = -1;
 	public static int RIGHT = 1;
 	
@@ -19,7 +22,7 @@ public class MoveSideways extends OutlierCommandGroup {
      * @param distance
      */
 	public  MoveSideways(int direction, double distance) {
-		LogAction(String.format("Moving %1$d for %2$f inches", direction, distance));
+		Util.LogAction(String.format("Moving %1$d for %2$f inches", direction, distance));
     	int runTime =  (int)Math.round(distance / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.SIDEWAYS);
 
     	// Run one side back for runTime milliseconds...if moving left, start with right wheels.  If moving right, start with left wheels

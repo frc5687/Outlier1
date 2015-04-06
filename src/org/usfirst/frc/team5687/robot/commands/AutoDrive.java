@@ -4,12 +4,15 @@ import java.util.Date;
 
 import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.Robot;
+import org.usfirst.frc.team5687.robot.Util;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Command to drive the robot at specified speeds for specified times or distances. 
  */
-public class AutoDrive extends OutlierCommand {
+public class AutoDrive extends Command {
 
 	DriveTrain drive = Robot.driveTrain;
 	private long end = 0;
@@ -59,7 +62,7 @@ public class AutoDrive extends OutlierCommand {
     protected void initialize() {
     	end = (new Date()).getTime() + timeToDrive;
     	
-    	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d", leftSpeed, rightSpeed, timeToDrive));
+    	Util.LogAction(String.format("Driving left=%1$f right=%2$f for %3$d", leftSpeed, rightSpeed, timeToDrive));
     }
 
     // Called repeatedly when this Command is scheduled to run
