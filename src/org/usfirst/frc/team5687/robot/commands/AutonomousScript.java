@@ -99,6 +99,7 @@ public class AutonomousScript extends CommandGroup {
 		if (scriptLine.length() == 0) { return null; }
 
 		// Grab the tokens
+		// TODO we could get rid of the 'replaceAll()' call above, and use scriptLine.split("\\s"); here
 		String[] tokens = scriptLine.split(" ");
 
 		switch(tokens[0]) {
@@ -219,7 +220,6 @@ public class AutonomousScript extends CommandGroup {
 		if (!"to".equals(tokens[2])) {
 			throw new ScriptParseException("Move command requires the phrase 'move stacker to'.  Found '%1$s'.", tokens[2]); 
 		}
-		
 		
 		if (tokens.length<4) {
 			throw new ScriptParseException("Move command requires a setpoint or height."); 
@@ -370,7 +370,7 @@ public class AutonomousScript extends CommandGroup {
 				throw new ScriptParseException("Only units milliseconds/seconds accepted in wait command.  Found: '%1$s'.", tokens[tokenCheck+1]);
 			}
 		}
-		return new AutonomousWait((int) waitTime);
+		return new AutoWait((int) waitTime);
 
 	}
 
