@@ -57,6 +57,8 @@ public class AutonomousScript extends CommandGroup {
 					try {
 						Command command = parseLine(scriptLine);
 						if (command != null) {
+							logMessage(String.format("Adding %1$s command for line %2$d", command.getClass().getName(), line));
+							
 							addSequential(command);
 						} else {
 							// Log the bad line to RoboRio

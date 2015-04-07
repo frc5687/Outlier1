@@ -15,6 +15,7 @@ public class Constants {
 		public static final double ACCELERATION_CAP = 0.30; // Maximum change in speed over 1/50 sec. (0 = no moving: .30 seems good)
 		public static final double STACKER_DOWN = 0.6;
 		public static final double STACKER_UP = 1.0;
+		public static final double SIDEWAYS_SPEED = 0.4;
 	}
 
 	public class AutonomousSettings {
@@ -25,20 +26,20 @@ public class Constants {
 	}
 	
 	
-	public class Calibration {
+	public class CalibrationDefaults {
 		public static final double SIDEWAYS = 100; // TODO: These values are fictional.  Need real values!!
-		public static final double ROTATION = .5; // TODO: These values are fictional.  Need real values!!
-		public static final double STRAIGHT = .1; // TODO: These values are fictional.  Need real values!!
+		public static final double ROTATION = 0.5; // TODO: These values are fictional.  Need real values!!
+		public static final double STRAIGHT = 0.1; // TODO: These values are fictional.  Need real values!!
+		
+		public static final double LEFT_OUT = 0.55; // TODO: These values are fictional.  Need real values!!
+		public static final double LEFT_IN = 0.1; // TODO: These values are fictional.  Need real values!!
+		public static final double RIGHT_IN = 0.55; // TODO: These values are fictional.  Need real values!!
+		public static final double RIGHT_OUT = 0.1; // TODO: These values are fictional.  Need real values!!
 	}
 	
 	public class Guides {
 		public static final int IN=-1;
 		public static final int OUT=1;
-		
-		public static final double LEFT_IN = .3; // TODO: These values are fictional.  Need real values!!
-		public static final double LEFT_OUT = .6; // TODO: These values are fictional.  Need real values!!
-		public static final double RIGHT_IN = .6; // TODO: These values are fictional.  Need real values!!
-		public static final double RIGHT_OUT = .3; // TODO: These values are fictional.  Need real values!!
 		public static final int TIMEOUT = 250; // Time in millesconds to allow for deploying or retracting guides.
 	}
 	

@@ -2,7 +2,7 @@ package org.usfirst.frc.team5687.robot.commands;
 
 import java.util.Date;
 
-import org.usfirst.frc.team5687.robot.Constants;
+import org.usfirst.frc.team5687.robot.Calibration;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.Util;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
@@ -29,7 +29,7 @@ public class AutoDrive extends Command {
 	 */
 	// TODO we may want to differentiate this from the (speed, time) constructor, so someone doesn't call the wrong one by mistake
 	public AutoDrive(double speed, double inches) {
-        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Constants.Calibration.STRAIGHT));
+        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Calibration.Drive.STRAIGHT));
     }
 	
 	/**
@@ -61,19 +61,18 @@ public class AutoDrive extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	end = (new Date()).getTime() + timeToDrive;
-    	
     	Util.LogAction(String.format("Driving left=%1$f right=%2$f for %3$d", leftSpeed, rightSpeed, timeToDrive));
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
 		drive.tankDrive(leftSpeed, rightSpeed, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (new Date()).getTime() > end;
+    	long now = (new Date()).getTime();
+    	return now > end;
     }
 
     // Called once after isFinished returns true

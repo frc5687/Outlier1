@@ -2,8 +2,9 @@ package org.usfirst.frc.team5687.robot.commands;
 
 import java.util.Date;
 
+import org.usfirst.frc.team5687.robot.Calibration;
 import org.usfirst.frc.team5687.robot.Constants;
-import org.usfirst.frc.team5687.robot.Constants.Calibration;
+import org.usfirst.frc.team5687.robot.Constants.CalibrationDefaults;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 
@@ -28,7 +29,7 @@ public class Rotate extends Command {
 	 * @param degrees
 	 */
 	public Rotate(int direction, double degrees) {
-        this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.ROTATION));
+        this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.Drive.ROTATION));
     }
 
 	/**

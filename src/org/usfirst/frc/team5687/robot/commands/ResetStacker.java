@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5687.robot.commands;
 
 import org.usfirst.frc.team5687.robot.Robot;
+import org.usfirst.frc.team5687.robot.Util;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,6 +20,7 @@ public class ResetStacker extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	// disable the PID (it might already be disabled, but just in case)
+    	Util.LogAction("Resetting stacker.");
     	stacker.disable();
     }
 

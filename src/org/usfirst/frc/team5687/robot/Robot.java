@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.usfirst.frc.team5687.robot.Constants.CalibrationDefaults;
 import org.usfirst.frc.team5687.robot.commands.AutonomousDoNothing;
 import org.usfirst.frc.team5687.robot.commands.AutonomousDriveOnly;
 import org.usfirst.frc.team5687.robot.commands.AutonomousLiftAndDrive;
@@ -49,8 +50,7 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-		
-    	//testpref = prefs.getDouble("TestPreference",1.0);
+    	initPrefs();
     	
     	driveTrain = new DriveTrain();
 		stacker = new Stacker();
@@ -94,6 +94,17 @@ public class Robot extends IterativeRobot {
 		updateDashboard();
     }
 	
+    private void initPrefs() {
+		prefs = Preferences.getInstance();
+		Calibration.Drive.ROTATION = prefs.getDouble("DriveRotation", Constants.CalibrationDefaults.ROTATION);
+		Calibration.Drive.STRAIGHT = prefs.getDouble("DriveStraigt", Constants.CalibrationDefaults.STRAIGHT);
+		Calibration.Drive.SIDEWAYS = prefs.getDouble("DriveSideways", Constants.CalibrationDefaults.SIDEWAYS);
+		
+		Calibration.Guides.LEFT_IN = prefs.getDouble("LeftGuideIn", CalibrationDefaults.LEFT_IN);
+		Calibration.Guides.LEFT_OUT = prefs.getDouble("LeftGuideOut", CalibrationDefaults.LEFT_OUT);
+		Calibration.Guides.RIGHT_IN = prefs.getDouble("RightGuideIn", CalibrationDefaults.RIGHT_IN);
+		Calibration.Guides.RIGHT_OUT = prefs.getDouble("RightGuideOut", CalibrationDefaults.RIGHT_OUT);
+    }
 	private List<AutonomousScript> loadAutoScripts() {
 		List<AutonomousScript> scripts = new LinkedList<AutonomousScript>();
 		
