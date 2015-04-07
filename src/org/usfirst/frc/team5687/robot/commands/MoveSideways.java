@@ -3,8 +3,10 @@ package org.usfirst.frc.team5687.robot.commands;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.usfirst.frc.team5687.robot.Calibration;
 import org.usfirst.frc.team5687.robot.Constants;
-import org.usfirst.frc.team5687.robot.Constants.Calibration;
+import org.usfirst.frc.team5687.robot.Constants.CalibrationDefaults;
+import org.usfirst.frc.team5687.robot.Constants.SpeedLimits;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 
@@ -27,7 +29,7 @@ public class MoveSideways extends OutlierCommandGroup {
      */
 	public  MoveSideways(int direction, double distance) {
 		LogAction(String.format("Moving %1$d for %2$f inches", direction, distance));
-    	int runTime =  (int)Math.round(distance / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.SIDEWAYS);
+    	int runTime =  (int)Math.round(distance / SpeedLimits.SIDEWAYS_SPEED * Calibration.Drive.SIDEWAYS);
 
     	// Run one side back for runTime milliseconds...if moving left, start with right wheels.  If moving right, start with left wheels
     	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED  *(direction == RIGHT?-1:0),Constants.AutonomousSettings.DRIVE_SPEED *(direction == LEFT?-1:0), runTime));

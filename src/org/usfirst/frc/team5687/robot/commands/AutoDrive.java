@@ -2,6 +2,7 @@ package org.usfirst.frc.team5687.robot.commands;
 
 import java.util.Date;
 
+import org.usfirst.frc.team5687.robot.Calibration;
 import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.Robot;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
@@ -28,7 +29,7 @@ public class AutoDrive extends OutlierCommand {
 	 * @param inches
 	 */
 	public AutoDrive(double speed, double inches) {
-        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Constants.Calibration.STRAIGHT));
+        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Calibration.Drive.STRAIGHT));
     }
 	
 	/**

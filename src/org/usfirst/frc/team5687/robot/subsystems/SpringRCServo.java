@@ -6,11 +6,12 @@ import edu.wpi.first.wpilibj.communication.UsageReporting;
 import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary.tResourceType;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+/**
+ * Custom Servo subclass to provide bounds specific to the SpringRC 8466 servos.
+ * @author Ben Bernard
+ *
+ */
 public class SpringRCServo extends Servo {
-
-    private static final double kMaxServoAngle = 180.0;
-    private static final double kMinServoAngle = 0.0;
-
     protected static final double kDefaultMaxServoPWM = 2.1;
     protected static final double kDefaultMinServoPWM = .9;
 	
