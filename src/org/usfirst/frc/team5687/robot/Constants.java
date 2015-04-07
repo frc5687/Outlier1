@@ -35,10 +35,10 @@ public class Constants {
 		public static final int IN=-1;
 		public static final int OUT=1;
 		
-		public static final double LEFT_IN = .3; // TODO: These values are fictional.  Need real values!!
-		public static final double LEFT_OUT = .6; // TODO: These values are fictional.  Need real values!!
-		public static final double RIGHT_IN = .6; // TODO: These values are fictional.  Need real values!!
-		public static final double RIGHT_OUT = .3; // TODO: These values are fictional.  Need real values!!
+		public static final double LEFT_IN = .1; // TODO: These values are fictional.  Need real values!!
+		public static final double LEFT_OUT = .55; // TODO: These values are fictional.  Need real values!!
+		public static final double RIGHT_IN = .55; // TODO: These values are fictional.  Need real values!!
+		public static final double RIGHT_OUT = 0.1; // TODO: These values are fictional.  Need real values!!
 		public static final int TIMEOUT = 250; // Time in millesconds to allow for deploying or retracting guides.
 	}
 	

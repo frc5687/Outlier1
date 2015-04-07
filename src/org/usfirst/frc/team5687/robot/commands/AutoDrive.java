@@ -61,7 +61,7 @@ public class AutoDrive extends OutlierCommand {
     protected void initialize() {
     	end = (new Date()).getTime() + timeToDrive;
     	
-    	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d", leftSpeed, rightSpeed, timeToDrive));
+    	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d (until %4$d)", leftSpeed, rightSpeed, timeToDrive, end));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -72,7 +72,8 @@ public class AutoDrive extends OutlierCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (new Date()).getTime() > end;
+    	long now = (new Date()).getTime();
+    	return now > end;
     }
 
     // Called once after isFinished returns true
