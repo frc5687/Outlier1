@@ -104,6 +104,7 @@ public class Robot extends IterativeRobot {
 		Calibration.Guides.LEFT_OUT = prefs.getDouble("LeftGuideOut", CalibrationDefaults.LEFT_OUT);
 		Calibration.Guides.RIGHT_IN = prefs.getDouble("RightGuideIn", CalibrationDefaults.RIGHT_IN);
 		Calibration.Guides.RIGHT_OUT = prefs.getDouble("RightGuideOut", CalibrationDefaults.RIGHT_OUT);
+		prefs.save();
     }
 	private List<AutonomousScript> loadAutoScripts() {
 		List<AutonomousScript> scripts = new LinkedList<AutonomousScript>();

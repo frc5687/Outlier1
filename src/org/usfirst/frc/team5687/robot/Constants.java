@@ -28,8 +28,8 @@ public class Constants {
 	
 	public class CalibrationDefaults {
 		public static final double SIDEWAYS = 100; // TODO: These values are fictional.  Need real values!!
-		public static final double ROTATION = 0.5; // TODO: These values are fictional.  Need real values!!
-		public static final double STRAIGHT = 0.1; // TODO: These values are fictional.  Need real values!!
+		public static final double ROTATION = 5; // TODO: These values are fictional.  Need real values!!
+		public static final double STRAIGHT = 100; // TODO: These values are fictional.  Need real values!!
 		
 		public static final double LEFT_OUT = 0.55; // TODO: These values are fictional.  Need real values!!
 		public static final double LEFT_IN = 0.1; // TODO: These values are fictional.  Need real values!!

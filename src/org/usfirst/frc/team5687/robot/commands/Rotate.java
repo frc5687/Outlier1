@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Command to rotate left or right for a particular time or for a specific degrees
  */
-public class Rotate extends Command {
+public class Rotate extends OutlierCommand {
 	public static int LEFT = -1;
 	public static int RIGHT = 1;
 
@@ -31,7 +31,7 @@ public class Rotate extends Command {
 	 * @param degrees
 	 */
 	public Rotate(int direction, double degrees) {
-        this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Calibration.Drive.ROTATION));
+        this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Constants.CalibrationDefaults.ROTATION));
     }
 
 	/**
@@ -42,8 +42,8 @@ public class Rotate extends Command {
 	public Rotate(int direction, int milliseconds) {
         requires(drive);
         // Calculate the settings
-        this.leftSpeed = Constants.AutonomousSettings.DRIVE_SPEED * direction == LEFT ? -1 : 1;
-        this.rightSpeed = Constants.AutonomousSettings.DRIVE_SPEED * direction == RIGHT ? -1 : 1;
+        this.leftSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? -1 : 1);
+        this.rightSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? 1 : -1);
         
         this.timeToRotate = milliseconds;
     }
@@ -51,6 +51,11 @@ public class Rotate extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	end = (new Date()).getTime() + timeToRotate;
+    	if (leftSpeed<0) {
+    		LogAction(String.format("Turning left for %1$d milliseconds", timeToRotate));
+    	} else {
+    		LogAction(String.format("Turning right for %1$d milliseconds", timeToRotate));
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

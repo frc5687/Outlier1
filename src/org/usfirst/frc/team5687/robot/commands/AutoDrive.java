@@ -29,7 +29,7 @@ public class AutoDrive extends OutlierCommand {
 	 * @param inches
 	 */
 	public AutoDrive(double speed, double inches) {
-        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Calibration.Drive.STRAIGHT));
+        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Constants.CalibrationDefaults.STRAIGHT));
     }
 	
 	/**
@@ -62,7 +62,7 @@ public class AutoDrive extends OutlierCommand {
     protected void initialize() {
     	end = (new Date()).getTime() + timeToDrive;
     	
-    	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d (until %4$d)", leftSpeed, rightSpeed, timeToDrive, end));
+    	LogAction(String.format("Driving left=%1$f right=%2$f for %3$d milliseconds", leftSpeed, rightSpeed, timeToDrive));
     }
 
     // Called repeatedly when this Command is scheduled to run
