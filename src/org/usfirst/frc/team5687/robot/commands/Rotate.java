@@ -31,7 +31,7 @@ public class Rotate extends OutlierCommand {
 	 * @param degrees
 	 */
 	public Rotate(int direction, double degrees) {
-        this(direction, (int)Math.round(degrees / Constants.AutonomousSettings.DRIVE_SPEED * Constants.CalibrationDefaults.ROTATION));
+        this(direction, (int)Math.round((degrees / Constants.AutonomousSettings.ROTATION_SPEED) * Constants.CalibrationDefaults.ROTATION));
     }
 
 	/**
@@ -42,8 +42,8 @@ public class Rotate extends OutlierCommand {
 	public Rotate(int direction, int milliseconds) {
         requires(drive);
         // Calculate the settings
-        this.leftSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? -1 : 1);
-        this.rightSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? 1 : -1);
+        this.leftSpeed = Constants.AutonomousSettings.ROTATION_SPEED * (direction == LEFT ? -1 : 1);
+        this.rightSpeed = Constants.AutonomousSettings.ROTATION_SPEED * (direction == LEFT ? 1 : -1);
         
         this.timeToRotate = milliseconds;
     }
