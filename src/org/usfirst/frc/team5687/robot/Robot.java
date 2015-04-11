@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
 	
     private void initPrefs() {
 		prefs = Preferences.getInstance();
-		Calibration.Drive.ROTATION = prefs.getDouble("DriveRotation", Constants.CalibrationDefaults.ROTATION);
+//		Calibration.Drive.ROTATION = prefs.getDouble("DriveRotation", Constants.CalibrationDefaults.ROTATION);
 		Calibration.Drive.STRAIGHT = prefs.getDouble("DriveStraigt", Constants.CalibrationDefaults.STRAIGHT);
 		Calibration.Drive.SIDEWAYS = prefs.getDouble("DriveSideways", Constants.CalibrationDefaults.SIDEWAYS);
 		

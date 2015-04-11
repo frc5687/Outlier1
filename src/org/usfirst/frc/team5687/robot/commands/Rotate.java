@@ -31,7 +31,22 @@ public class Rotate extends OutlierCommand {
 	 * @param degrees
 	 */
 	public Rotate(int direction, double degrees) {
-        this(direction, (int)Math.round((degrees / Constants.AutonomousSettings.ROTATION_SPEED) * Constants.CalibrationDefaults.ROTATION));
+        requires(drive);
+
+		this.leftSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? 1 : -1);
+        this.rightSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? -1 : 1);
+
+        double degreesPerSecond = 0;
+
+		if (direction==LEFT){
+	        // Calculate the settings
+	        degreesPerSecond = Constants.AutonomousSettings.ROTATION_SPEED * Constants.CalibrationDefaults.LEFT_ROTATION;
+		} else {
+	        degreesPerSecond = Constants.AutonomousSettings.ROTATION_SPEED * Constants.CalibrationDefaults.LEFT_ROTATION;
+		}
+		double degreesPerMillisecond = degreesPerSecond/1000;
+		int milliseconds = (int)Math.round(degrees / degreesPerMillisecond);
+        this.timeToRotate = milliseconds;
     }
 
 	/**
@@ -42,8 +57,8 @@ public class Rotate extends OutlierCommand {
 	public Rotate(int direction, int milliseconds) {
         requires(drive);
         // Calculate the settings
-        this.leftSpeed = Constants.AutonomousSettings.ROTATION_SPEED * (direction == LEFT ? -1 : 1);
-        this.rightSpeed = Constants.AutonomousSettings.ROTATION_SPEED * (direction == LEFT ? 1 : -1);
+        this.leftSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? -1 : 1);
+        this.rightSpeed = Constants.AutonomousSettings.DRIVE_SPEED * (direction == LEFT ? 1 : -1);
         
         this.timeToRotate = milliseconds;
     }

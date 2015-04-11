@@ -22,7 +22,7 @@ public class Constants {
 		public static final double SIDEWAYS_SPEED = 0.6;
 		public static final double ROTATION_SPEED = 0.6;
 		public static final int DRIVE_TIME = 2800; // In milliseconds
-		public static final int CLEAR_TIME = 50; // In milliseconds
+		public static final int CLEAR_TIME = 600; // In milliseconds
 		public static final double STACKER_SPEED = 1.0;
 		public static final int LIFT_TIME = 1000; // In milliseconds
 	}
@@ -30,8 +30,9 @@ public class Constants {
 	
 	public class CalibrationDefaults {
 		public static final double SIDEWAYS = 200; // Tested at WPI
-		public static final double ROTATION = 10; // TODO: This values are pretty good
-		public static final double STRAIGHT = 75; // TODO: These values are fictional.  Need real values!!
+		public static final double LEFT_ROTATION = 10; // TODO: This values are pretty good
+		public static final double RIGHT_ROTATION = 10; // TODO: This values are pretty good
+		public static final double STRAIGHT = 100; // TODO: These values are fictional.  Need real values!!
 		
 	//Bumpers
 		public static final double LEFT_OUT = 1.9; // TODO: These values are fictional.  Need real values!!

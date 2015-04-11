@@ -29,9 +29,16 @@ public class AutoDrive extends OutlierCommand {
 	 * @param inches
 	 */
 	public AutoDrive(double speed, double inches) {
-		
-		
-        this(speed * (inches<0?-1:1), (int)(Math.round((Math.abs(inches) / Math.abs(speed)) * Constants.CalibrationDefaults.STRAIGHT)));
+		requires(drive);
+		double inchesPerSecond = Math.abs(speed) * Constants.CalibrationDefaults.STRAIGHT;
+		double inchesPerMillisecond = inchesPerSecond / 1000;
+		int direction = (inches<0?-1:1);
+		double distanceInInches = Math.abs(inches);
+		double milliseconds = distanceInInches / inchesPerMillisecond;
+
+        this.leftSpeed = Math.abs(speed) * direction;
+        this.rightSpeed = Math.abs(speed) * direction;
+        this.timeToDrive = (int)Math.round(milliseconds);
     }
 	
 	/**
