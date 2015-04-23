@@ -1,5 +1,4 @@
 package org.usfirst.frc.team5687.robot.subsystems;
-
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.PWM.PeriodMultiplier;
 import edu.wpi.first.wpilibj.communication.UsageReporting;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  *
  */
 public class SpringRCServo extends Servo {
-    protected static final double kDefaultMaxServoPWM = 2.1;
+    protected static final double kDefaultMaxServoPWM = 2.2;
     protected static final double kDefaultMinServoPWM = .9;
 	
     private void initServo() {

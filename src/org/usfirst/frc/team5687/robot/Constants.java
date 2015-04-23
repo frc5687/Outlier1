@@ -35,10 +35,10 @@ public class Constants {
 		public static final double STRAIGHT = 100; // TODO: These values are fictional.  Need real values!!
 		
 	//Bumpers
-		public static final double LEFT_OUT = 1.9; // TODO: These values are fictional.  Need real values!!
-		public static final double LEFT_IN = 0.37; // TODO: These values are tuned and acceptable
-		public static final double RIGHT_IN = 0.65; // TODO: These values are tuned and acceptable
-		public static final double RIGHT_OUT = 0.00; // TODO: These values are tuned and acceptable
+		public static final double LEFT_IN = 1.0; // TODO: These values are tuned and GOOD
+		public static final double LEFT_OUT = 0.4; // TODO: These values are tuned and acceptable
+		public static final double RIGHT_OUT = 0.6; // TODO: These values are tuned and acceptable
+		public static final double RIGHT_IN = 0.00; // TODO: These values are tuned and GOOD
 	}
 	
 	public class Guides {
