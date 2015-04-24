@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser autoChooser;
     
-    CameraServer server;
+    CustomCameraServer server;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -83,9 +83,10 @@ public class Robot extends IterativeRobot {
 		
     	// Setup camera streaming, working sometimes
         try {
-    		server = CameraServer.getInstance();
+    		server = CustomCameraServer.getInstance();
     		server.setQuality(50);
     		server.startAutomaticCapture("cam2"); 
+    		server.setSize(1); // force 320x240
     				
     	} catch (Exception e) {
     		DriverStation.reportError("Failed to setup camera server", true);
