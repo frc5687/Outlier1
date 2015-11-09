@@ -57,7 +57,7 @@ public class AutonomousScript extends CommandGroup {
 					try {
 						Command command = parseLine(scriptLine);
 						if (command != null) {
-							logMessage(String.format("Adding %1$s command for line %2$d", command.getClass().getName(), line));
+							logMessage(String.format("Adding %1$s command for line %2$d", command.getClass().getSimpleName(), line));
 							
 							addSequential(command);
 						} else {
@@ -140,11 +140,11 @@ public class AutonomousScript extends CommandGroup {
 			case "forward":
 			case "forwards":
 			case "ahead":
-				direction = 1;
+				direction = -1;
 				break;
 			case "back":
 			case "backwards":
-				direction = -1;
+				direction = 1;
 				break;
 			default:
 				throw new ScriptParseException("Invalid direction passed to drive command: '%1$s'.  Expected 'forward' or 'backward'.", tokens[1]);
@@ -182,7 +182,7 @@ public class AutonomousScript extends CommandGroup {
 			speed = Constants.AutonomousSettings.DRIVE_SPEED;
 		}
 
-		return new AutoDrive(speed, inches * direction);
+		return new AutoDrive(speed, inches * (double)direction);
 	}
 
 	/**

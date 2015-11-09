@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5687.robot.subsystems;
 
 import org.usfirst.frc.team5687.robot.Calibration;
+import org.usfirst.frc.team5687.robot.Constants;
 import org.usfirst.frc.team5687.robot.Constants.CalibrationDefaults;
 import org.usfirst.frc.team5687.robot.RobotMap;
 
@@ -18,13 +19,13 @@ public class Guides extends Subsystem {
 	}
 
 	public void MoveIn() {
-		leftServo.set(Calibration.Guides.LEFT_IN);
-		rightServo.set(Calibration.Guides.RIGHT_IN);
+		leftServo.set(Constants.CalibrationDefaults.LEFT_IN);
+		rightServo.set(Constants.CalibrationDefaults.RIGHT_IN);
 	}
 
 	public void MoveOut() {
-		leftServo.set(Calibration.Guides.LEFT_OUT);
-		rightServo.set(Calibration.Guides.RIGHT_OUT);
+		leftServo.set(Constants.CalibrationDefaults.LEFT_OUT);
+		rightServo.set(Constants.CalibrationDefaults.RIGHT_OUT);
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public class AutonomousLiftAndDrive extends CommandGroup {
 	
     public  AutonomousLiftAndDrive() {
     	    	
+    	addSequential(new MoveGuides(Constants.Guides.OUT));
     	
     	// Lift to set point
     	addSequential(new LiftStackerForTime(Constants.AutonomousSettings.LIFT_TIME));

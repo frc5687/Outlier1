@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Command to drive the robot at specified speeds for specified times or distances. 
  */
-public class AutoWait extends Command {
+public class AutoWait extends OutlierCommand {
 
 	DriveTrain drive = Robot.driveTrain;
 	private long end = 0;
@@ -26,6 +26,7 @@ public class AutoWait extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	end = (new Date()).getTime() + timeToWait;
+    	LogAction(String.format("Waiting for %1$d milliseconds", timeToWait));
     }
 
     // Called repeatedly when this Command is scheduled to run

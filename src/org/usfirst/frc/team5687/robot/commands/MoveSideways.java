@@ -26,16 +26,16 @@ public class MoveSideways extends CommandGroup {
     	int runTime =  (int)Math.round(distance / Constants.AutonomousSettings.DRIVE_SPEED * CalibrationDefaults.SIDEWAYS);
 
     	// Run one side back for runTime milliseconds...if moving left, start with right wheels.  If moving right, start with left wheels
-    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED  *(direction == RIGHT?-1:0),Constants.AutonomousSettings.DRIVE_SPEED *(direction == LEFT?-1:0), runTime));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.SIDEWAYS_SPEED  *(direction == RIGHT?1:0),Constants.AutonomousSettings.SIDEWAYS_SPEED *(direction == LEFT?1:0), runTime));
 
     	// Run the other side back for runTime milliseconds...if moving left, finish with left wheels.  If moving right, finish with right wheels
-    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED  *(direction == RIGHT?0:-1),Constants.AutonomousSettings.DRIVE_SPEED *(direction == LEFT?0:-1), runTime));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.SIDEWAYS_SPEED  *(direction == RIGHT?0:1),Constants.AutonomousSettings.SIDEWAYS_SPEED *(direction == LEFT?0:1), runTime));
 
     	// Run one side forward for runTime milliseconds...if moving left, start with right wheels.  If moving right, start with left wheels
-    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED  *(direction == RIGHT?1:0),Constants.AutonomousSettings.DRIVE_SPEED *(direction == LEFT?1:0), runTime));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.SIDEWAYS_SPEED  *(direction == RIGHT?-1:0),Constants.AutonomousSettings.SIDEWAYS_SPEED *(direction == LEFT?-1:0), runTime));
 
     	// Run the other side forward for runTime milliseconds...if moving left, finish with left wheels.  If moving right, finish with right wheels
-    	addSequential(new AutoDrive(Constants.AutonomousSettings.DRIVE_SPEED  *(direction == RIGHT?0:1),Constants.AutonomousSettings.DRIVE_SPEED *(direction == LEFT?0:1), runTime));
+    	addSequential(new AutoDrive(Constants.AutonomousSettings.SIDEWAYS_SPEED  *(direction == RIGHT?0:-1),Constants.AutonomousSettings.SIDEWAYS_SPEED *(direction == LEFT?0:-1), runTime));
     }
     
 }

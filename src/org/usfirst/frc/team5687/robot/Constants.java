@@ -15,26 +15,30 @@ public class Constants {
 		public static final double ACCELERATION_CAP = 0.30; // Maximum change in speed over 1/50 sec. (0 = no moving: .30 seems good)
 		public static final double STACKER_DOWN = 0.6;
 		public static final double STACKER_UP = 1.0;
-		public static final double SIDEWAYS_SPEED = 0.4;
 	}
 
 	public class AutonomousSettings {
 		public static final double DRIVE_SPEED = 0.4;
-		public static final int DRIVE_TIME = 3000; // In milliseconds
+		public static final double SIDEWAYS_SPEED = 0.6;
+		public static final double ROTATION_SPEED = 0.6;
+		public static final int DRIVE_TIME = 2800; // In milliseconds
+		public static final int CLEAR_TIME = 600; // In milliseconds
 		public static final double STACKER_SPEED = 1.0;
 		public static final int LIFT_TIME = 1000; // In milliseconds
 	}
-	
+	// 140, 100
 	
 	public class CalibrationDefaults {
-		public static final double SIDEWAYS = 100; // TODO: These values are fictional.  Need real values!!
-		public static final double ROTATION = 0.5; // TODO: These values are fictional.  Need real values!!
-		public static final double STRAIGHT = 0.1; // TODO: These values are fictional.  Need real values!!
+		public static final double SIDEWAYS = 200; // Tested at WPI
+		public static final double LEFT_ROTATION = 10; // TODO: This values are pretty good
+		public static final double RIGHT_ROTATION = 10; // TODO: This values are pretty good
+		public static final double STRAIGHT = 100; // TODO: These values are fictional.  Need real values!!
 		
-		public static final double LEFT_OUT = 0.55; // TODO: These values are fictional.  Need real values!!
-		public static final double LEFT_IN = 0.1; // TODO: These values are fictional.  Need real values!!
-		public static final double RIGHT_IN = 0.55; // TODO: These values are fictional.  Need real values!!
-		public static final double RIGHT_OUT = 0.1; // TODO: These values are fictional.  Need real values!!
+	//Bumpers
+		public static final double LEFT_IN = 1.0; // TODO: These values are tuned and GOOD
+		public static final double LEFT_OUT = 0.4; // TODO: These values are tuned and acceptable
+		public static final double RIGHT_OUT = 0.6; // TODO: These values are tuned and acceptable
+		public static final double RIGHT_IN = 0.00; // TODO: These values are tuned and GOOD
 	}
 	
 	public class Guides {
@@ -66,7 +70,7 @@ public class Constants {
 		public static final double CLEAR_SECOND = 70.875 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_4_HEIGHT = 64 - HEIGHT_OFFSET;
 		public static final double DEPOSIT_2_HEIGHT = 37.5 - HEIGHT_OFFSET;
-		public static final double CHUTE_HEIGHT = 53.5 - HEIGHT_OFFSET;
+		public static final double CHUTE_HEIGHT = 53.825 - HEIGHT_OFFSET;
 		
 		/*
 		public static final double HOVER_CAN = 26.5 - HEIGHT_OFFSET;

@@ -29,7 +29,16 @@ public class AutoDrive extends Command {
 	 */
 	// TODO we may want to differentiate this from the (speed, time) constructor, so someone doesn't call the wrong one by mistake
 	public AutoDrive(double speed, double inches) {
-        this(speed * (inches<0?-1:1), (int)Math.round(Math.abs(inches) / Math.abs(speed) * Calibration.Drive.STRAIGHT));
+		requires(drive);
+		double inchesPerSecond = Math.abs(speed) * Constants.CalibrationDefaults.STRAIGHT;
+		double inchesPerMillisecond = inchesPerSecond / 1000;
+		int direction = (inches<0?-1:1);
+		double distanceInInches = Math.abs(inches);
+		double milliseconds = distanceInInches / inchesPerMillisecond;
+
+        this.leftSpeed = Math.abs(speed) * direction;
+        this.rightSpeed = Math.abs(speed) * direction;
+        this.timeToDrive = (int)Math.round(milliseconds);
     }
 	
 	/**

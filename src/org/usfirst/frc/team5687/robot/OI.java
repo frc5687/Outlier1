@@ -14,7 +14,7 @@ public class OI {
 	private Gamepad gamepad;
 	private Joystick joystick;
 	
-	public static final int RESET = 6;
+	public static final int RESET = 12;
 	public static final int CLEAR_2 = 7;
 	public static final int CLEAR_4 = 9;
 	public static final int DEPOSIT_2 = 8;

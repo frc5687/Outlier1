@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     SendableChooser autoChooser;
     
-    CameraServer server;
+    CustomCameraServer server;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -83,9 +83,10 @@ public class Robot extends IterativeRobot {
 		
     	// Setup camera streaming, working sometimes
         try {
-    		server = CameraServer.getInstance();
+    		server = CustomCameraServer.getInstance();
     		server.setQuality(50);
-    		server.startAutomaticCapture("cam0"); 
+    		server.startAutomaticCapture("cam2"); 
+    		server.setSize(1); // force 320x240
     				
     	} catch (Exception e) {
     		DriverStation.reportError("Failed to setup camera server", true);
@@ -96,7 +97,7 @@ public class Robot extends IterativeRobot {
 	
     private void initPrefs() {
 		prefs = Preferences.getInstance();
-		Calibration.Drive.ROTATION = prefs.getDouble("DriveRotation", Constants.CalibrationDefaults.ROTATION);
+//		Calibration.Drive.ROTATION = prefs.getDouble("DriveRotation", Constants.CalibrationDefaults.ROTATION);
 		Calibration.Drive.STRAIGHT = prefs.getDouble("DriveStraigt", Constants.CalibrationDefaults.STRAIGHT);
 		Calibration.Drive.SIDEWAYS = prefs.getDouble("DriveSideways", Constants.CalibrationDefaults.SIDEWAYS);
 		
@@ -104,6 +105,7 @@ public class Robot extends IterativeRobot {
 		Calibration.Guides.LEFT_OUT = prefs.getDouble("LeftGuideOut", CalibrationDefaults.LEFT_OUT);
 		Calibration.Guides.RIGHT_IN = prefs.getDouble("RightGuideIn", CalibrationDefaults.RIGHT_IN);
 		Calibration.Guides.RIGHT_OUT = prefs.getDouble("RightGuideOut", CalibrationDefaults.RIGHT_OUT);
+		prefs.save();
     }
 	private List<AutonomousScript> loadAutoScripts() {
 		List<AutonomousScript> scripts = new LinkedList<AutonomousScript>();
