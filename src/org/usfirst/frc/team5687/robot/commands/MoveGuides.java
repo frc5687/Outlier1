@@ -3,17 +3,16 @@ package org.usfirst.frc.team5687.robot.commands;
 import java.util.Date;
 
 import org.usfirst.frc.team5687.robot.Constants;
-import org.usfirst.frc.team5687.robot.OI;
 import org.usfirst.frc.team5687.robot.Robot;
+import org.usfirst.frc.team5687.robot.Util;
 import org.usfirst.frc.team5687.robot.subsystems.Guides;
-import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Command for moving the stacker based on raw OI axis input
  */
-public class MoveGuides extends OutlierCommand {
+public class MoveGuides extends Command {
 	
 	Guides guides = Robot.guides;
 	private int target; 
@@ -21,7 +20,7 @@ public class MoveGuides extends OutlierCommand {
 	
     public MoveGuides(int target) {
     	super();
-    	LogAction("Instantiating guides.");
+    	Util.LogAction("Instantiating guides.");
         this.target = target;
     	requires(guides);
     }
@@ -31,15 +30,15 @@ public class MoveGuides extends OutlierCommand {
     	end = (new Date()).getTime() + Constants.Guides.TIMEOUT;
     	switch(target) {
     		case Constants.Guides.IN:
-    	    	LogAction(String.format("Moving guides IN"));
+    	    	Util.LogAction(String.format("Moving guides IN"));
     	    	guides.MoveIn();
     	    	break;
     		case Constants.Guides.OUT:
-    	    	LogAction(String.format("Moving guides OUT"));
+    	    	Util.LogAction(String.format("Moving guides OUT"));
     	    	guides.MoveOut();
     	    	break;
     	    default:
-    	    	LogAction(String.format("Unrecognized guides target: '%1$n'", target));
+    	    	Util.LogAction(String.format("Unrecognized guides target: '%1$n'", target));
     	}
     }
 

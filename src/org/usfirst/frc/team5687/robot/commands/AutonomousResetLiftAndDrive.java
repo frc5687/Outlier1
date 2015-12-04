@@ -1,11 +1,7 @@
 package org.usfirst.frc.team5687.robot.commands;
 
 import java.util.Calendar;
-import java.util.Date;
-
 import org.usfirst.frc.team5687.robot.Constants;
-import org.usfirst.frc.team5687.robot.Robot;
-import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -14,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * move forward for a set time, then lift stacker to a setpoint.
  */
 public class AutonomousResetLiftAndDrive extends CommandGroup {
-    
+	
 	private Calendar end = null;
 	
     public  AutonomousResetLiftAndDrive() {
