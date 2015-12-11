@@ -13,3 +13,5 @@ hs_err_pid*
 /bin/
 sysProps.xml
 /lib/
+*.classpath
+*.classpath
