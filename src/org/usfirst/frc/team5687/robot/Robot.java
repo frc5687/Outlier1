@@ -15,6 +15,7 @@ import org.usfirst.frc.team5687.robot.commands.AutonomousResetOnly;
 import org.usfirst.frc.team5687.robot.commands.AutonomousScript;
 import org.usfirst.frc.team5687.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5687.robot.subsystems.Guides;
+import org.usfirst.frc.team5687.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team5687.robot.subsystems.Stacker;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -38,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static Stacker stacker;
 	public static Guides guides;
 	public static OI oi;
+	public static Pneumatics pneumatics;
 	
     Command autonomousCommand;
     SendableChooser autoChooser;
@@ -55,6 +57,7 @@ public class Robot extends IterativeRobot {
 		stacker = new Stacker();
 		guides = new Guides();
 		oi = new OI();
+		pneumatics = new Pneumatics();
     	
 		// Load the auto scripts from filesystem...
 		List<AutonomousScript> autoScripts = loadAutoScripts();
