@@ -8,7 +8,7 @@ public class RobotMap {
     
 	// Drive Train Ports
 	public static int leftMotor = 0;
-    public static int rightMotor = 3;
+    public static int rightMotor = 5;
     
     // Lift Motor Ports
     public static int stackerMotor = 4;
