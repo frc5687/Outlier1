@@ -1,39 +1,15 @@
-# WPILib #
-bin/
-build/
-lib/
-sysProps.xml
-
-# Eclipse IDE #
-.metadata
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.project
-.buildpath
-.classpath
-
-# Java specific #
 *.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
 # Package Files #
 *.jar
 *.war
 *.ear
 
-# OS generated files
-.DS_Store
-.Trashes
-._*
-Thumbs.db
-
-# Mobile Tools for Java (J2ME) #
-.mtj.tmp/
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml #
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/bin/
+sysProps.xml
+/lib/
