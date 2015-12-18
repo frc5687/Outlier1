@@ -1,16 +1,11 @@
 package org.usfirst.frc.team5687.robot;
 
-import org.usfirst.frc.team5687.robot.Gamepad.Buttons;
-import org.usfirst.frc.team5687.robot.commands.ExpandValve;
-import org.usfirst.frc.team5687.robot.commands.MoveGuides;
-import org.usfirst.frc.team5687.robot.commands.MoveSideways;
-import org.usfirst.frc.team5687.robot.commands.MoveStackerToSetpoint;
-import org.usfirst.frc.team5687.robot.commands.ResetStacker;
-import org.usfirst.frc.team5687.robot.commands.RetractValve;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team5687.robot.Gamepad.Buttons;
+import org.usfirst.frc.team5687.robot.commands.*;
 
 /**
  * Operator interface for the robot, tying user controls to robot commands
@@ -29,9 +24,6 @@ public class OI {
 	public static final int JUMP_LEFT = Buttons.X.ordinal()+1;
 	public static final int JUMP_RIGHT = Buttons.B.ordinal()+1;
 
-	public static final int EXPAND_VALVE = Buttons.Y.ordinal()+1; //TODO: PNEUMATICS TEST
-	public static final int RETRACT_VALVE = Buttons.A.ordinal()+1; //TODO: PNEUMATICS TEST
-	
 	public static final int GUIDES_IN = 5;
 	public static final int GUIDES_OUT = 6;
 	
@@ -56,8 +48,6 @@ public class OI {
 		JoystickButton guidesInButton = new JoystickButton(joystick, GUIDES_IN);
 		JoystickButton guidesOutButton = new JoystickButton(joystick, GUIDES_OUT);
 		
-		JoystickButton expandValveButton = new JoystickButton(gamepad, EXPAND_VALVE); //TODO: PNEUMATICS TEST
-		JoystickButton retractValveButton = new JoystickButton(gamepad, RETRACT_VALVE); //TODO: PNEUMATICS TEST
 		
 		JoystickButton jumpLeftButton = new JoystickButton(gamepad, JUMP_LEFT);
 		JoystickButton jumpRightButton = new JoystickButton(gamepad, JUMP_RIGHT);
@@ -76,9 +66,6 @@ public class OI {
 
 		jumpLeftButton.whenPressed(new MoveSideways(MoveSideways.LEFT, 1));
 		jumpRightButton.whenPressed(new MoveSideways(MoveSideways.RIGHT, 1));
-		
-		expandValveButton.whenPressed(new ExpandValve()); //TODO: PNEUMATICS TEST
-		retractValveButton.whenPressed(new RetractValve()); //TODO: PNEUMATICS TEST
 		
 		// Add commands to dashboard
 		SmartDashboard.putData("Reset Stacker", new ResetStacker());
