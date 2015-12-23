@@ -1,5 +1,8 @@
-sudo: false
 language: java
-install: git clone https://github.com/frc5687/wpilib-mirror.git ~/wpilib
-script: ant jar
-jdk: oraclejdk8
+
+jdk:
+- oraclejdk8
+
+before_install:
+- chmod +x gradlew
+- ./gradlew wpi
