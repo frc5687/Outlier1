@@ -8,5 +8,5 @@ Code for FRC5687's 2015 robot
 1. Install [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/)
 2. Clone this repository using Git
 3. Follow the directions for running Gradle and setting up WPILib in GradleRIO4Dummies.txt (skip the workspace setup step)
-
+4. Double-click on Outlier1.ipr to open the project in IntelliJ IDEA
 
