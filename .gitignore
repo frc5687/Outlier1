@@ -6,6 +6,8 @@ sysProps.xml
 workbench.xmi
 
 # IDE
+*.iml
+*.ipr
 *.iws
 out/
 tmp/
