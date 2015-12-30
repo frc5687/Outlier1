@@ -24,4 +24,5 @@ Code for FRC5687's 2015 robot
       ```
       
 4. Double-click on Outlier1.ipr to open the project in IntelliJ IDEA
-5. Open the Robot.java file, if IntelliJ shows build errors (can't find WPILib), you may need to follow the directions for setting up the workspace in GradleRIO4Dummies.txt
+
+Note that you can use the Terminal window in IntelliJ for future command-prompt/ terminal needs (like deploying code)
