@@ -1,0 +1,12 @@
+# Sample Outliers Autonomous Robot Script!
+# Lines starting with a # will be skipped
+
+# Empty lines will be skipped
+move stacker to GROUND
+wait 5 seconds
+move stacker to CLEAR_FIRST
+drive forward 12 inches
+wait 500
+rotate left 90 degrees
+rotate right 90 degrees
+drive back 8 inches at .1 speed
