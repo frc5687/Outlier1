@@ -7,7 +7,6 @@ import org.usfirst.frc.team5687.robot.commands.MoveStackerManually;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
@@ -40,7 +39,6 @@ public class Stacker extends PIDSubsystem {
     	
     	// Initialize the encoder
     	encoder = new Encoder(RobotMap.encoderA, RobotMap.encoderB, false, EncodingType.k4X);
-    	encoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
     	encoder.setDistancePerPulse(Constants.DISTANCE_PER_PULSE);
     	
     	// Set PID controller parameters
