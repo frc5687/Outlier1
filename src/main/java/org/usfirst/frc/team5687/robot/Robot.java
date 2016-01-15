@@ -55,10 +55,10 @@ public class Robot extends IterativeRobot {
 		stacker = new Stacker();
 		guides = new Guides();
 		oi = new OI();
-    	
+    	/*
 		// Load the auto scripts from filesystem...
 		List<AutonomousScript> autoScripts = loadAutoScripts();
-		
+		*/
     	// Set up the autonomous choices...
     	autoChooser = new SendableChooser();
     	
@@ -71,12 +71,12 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Lift and Drive ONLY", new AutonomousLiftAndDrive());
 		autoChooser.addObject("Drive ONLY", new AutonomousDriveOnly());
 		autoChooser.addObject("Reset, Drive and Lift", new AutonomousResetLiftAndDrive());
-
+		/*
 		// Add autonomous script commands to the autochooser
 		for (AutonomousScript script : autoScripts) {
 			autoChooser.addObject(script.getDislayName(), script);
-		}
-		
+		}*/
+
     	// Add the chooser to the dashboard, tested and working
 		SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 		
@@ -106,6 +106,7 @@ public class Robot extends IterativeRobot {
 		Calibration.Guides.RIGHT_OUT = prefs.getDouble("RightGuideOut", CalibrationDefaults.RIGHT_OUT);
 		prefs.save();
     }
+	/*
 	private List<AutonomousScript> loadAutoScripts() {
 		List<AutonomousScript> scripts = new LinkedList<AutonomousScript>();
 		
@@ -126,7 +127,7 @@ public class Robot extends IterativeRobot {
 	    }
 		return scripts;
 	}
-
+	*/
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
