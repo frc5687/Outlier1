@@ -26,6 +26,9 @@ public class OI {
 
 	public static final int GUIDES_IN = 5;
 	public static final int GUIDES_OUT = 6;
+
+	public static final int EXPAND_PISTON = Buttons.Y.ordinal()+1;
+	public static final int RETRACT_PISTON = Buttons.A.ordinal()+1;
 	
 	
 	public static Buttons boostButton = Buttons.RB;
@@ -47,10 +50,12 @@ public class OI {
 
 		JoystickButton guidesInButton = new JoystickButton(joystick, GUIDES_IN);
 		JoystickButton guidesOutButton = new JoystickButton(joystick, GUIDES_OUT);
-		
-		
+
 		JoystickButton jumpLeftButton = new JoystickButton(gamepad, JUMP_LEFT);
 		JoystickButton jumpRightButton = new JoystickButton(gamepad, JUMP_RIGHT);
+
+		JoystickButton expandPistonButton = new JoystickButton(gamepad, EXPAND_PISTON);
+		JoystickButton retractPistonButton = new JoystickButton(gamepad, RETRACT_PISTON);
 		
 		
 		// Link buttons to commands
@@ -66,6 +71,9 @@ public class OI {
 
 		jumpLeftButton.whenPressed(new MoveSideways(MoveSideways.LEFT, 1));
 		jumpRightButton.whenPressed(new MoveSideways(MoveSideways.RIGHT, 1));
+
+		expandPistonButton.whenPressed(new ExpandPiston());
+		retractPistonButton.whenPressed(new RetractPiston());
 		
 		// Add commands to dashboard
 		SmartDashboard.putData("Reset Stacker", new ResetStacker());
